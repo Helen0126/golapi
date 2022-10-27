@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Utils;
 
 use App\Http\Resources\Ghost\EmptyResource;
@@ -291,5 +292,23 @@ trait ApiResponseTrait
             ],
             422
         );
+    }
+
+    /**
+     * Respond with Token.
+     *
+     * @param $data
+     *
+     * @return JsonResponse
+     */
+    protected function respondToken(string $token)
+    {
+        return $this->apiResponse([
+            'success' => true,
+            'message' => 'Inicio de sesion correcto! :)',
+            'result' => [
+                'token' => $token
+            ]
+        ], 201);
     }
 }

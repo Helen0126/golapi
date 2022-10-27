@@ -13,6 +13,32 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Class User.
+ *
+ * @OA\Schema(
+ *     title="Usuario",
+ *     description="",
+ *     required={"name", "password"},
+ *     @OA\Xml(
+ *         name="User"
+ *     )
+ * )
+ * @OA\Property(
+ *     property="name",
+ *     title="name",
+ *     description="Nombre de usuario",
+ *     type="string",
+ *     default="206461532"
+ * )
+ * @OA\Property(
+ *     property="password",
+ *     title="password",
+ *     description="Contraseña",
+ *     type="password",
+ *     default=""
+ * )
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, MediaAlly, HasRoles;
