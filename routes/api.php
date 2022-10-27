@@ -24,5 +24,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('user/upload-avatar', 'uploadAvatar');
         Route::get('user/profile', 'showProfile');
     });
-    // Route::apiResource('person', PersonController::class);
 });
