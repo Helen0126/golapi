@@ -46,6 +46,74 @@
                     }
                 }
             }
+        },
+        "/user/upload-avatar": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Actualiza el avatar del usuario",
+                "description": "Sube imagen al servidor.",
+                "operationId": "094803c88804032f812b1a5a8554d920",
+                "requestBody": {
+                    "description": "Datos en formato 'multipart/form-data'",
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "avatar": {
+                                        "title": "Avatar",
+                                        "description": "Imagen en formato .jpg,.jpeg,.png",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok.",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/user/profile": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Retorna todos los datos del usuario autenticado.",
+                "description": "Datos del usuario autenticado.",
+                "operationId": "14529bd636687e89e4d8a631b848badf",
+                "responses": {
+                    "200": {
+                        "description": "Ok.",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -92,6 +160,10 @@
         {
             "name": "auth",
             "description": "Modulo de autenticación"
+        },
+        {
+            "name": "user",
+            "description": "Modulo de gestion de Usuarios"
         },
         {
             "name": "person",
