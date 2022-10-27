@@ -18,6 +18,10 @@ use App\Utils\ApiResponseTrait;
  *     name="auth",
  *     description="Modulo de autenticación",
  * )
+  * @OA\Tag(
+ *     name="user",
+ *     description="Modulo de gestion de Usuarios",
+ * )
  * @OA\Tag(
  *     name="person",
  *     description="Gestion de estudiantes, tutores...",
