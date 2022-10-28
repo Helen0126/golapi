@@ -3,9 +3,11 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Laravolt\Avatar\Avatar;
 
 class UserDetailResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -14,10 +16,14 @@ class UserDetailResource extends JsonResource
      */
     public function toArray($request)
     {
+        $avatar = new Avatar();
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'person' => new PersonResource($this->whenLoaded('person')),
+            $this->mergeWhen($this->relationLoaded('person'), [
+                'person' => new PersonResource($this->whenLoaded('person')),
+                'avatar' => $this->fetchFirstMedia() ?? 'https://ui-avatars.com/api/?name=' . $this->person->getFirstNameAndLastName(),
+            ]),
             'roles' => $this->getRoleNames(),
         ];
     }
