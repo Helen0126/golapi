@@ -48,7 +48,13 @@ class ProfileController extends ApiController
         ]);
         // !FIX: ¿Se podria hacer un TRANSACTION aqui?
         Auth::user()->detachMedia();
-        Auth::user()->attachMedia($request->avatar);
+        Auth::user()->attachMedia($request->avatar, ['transformation' => [
+            'width' => 350,
+            'height' => 350,
+            'radius' => 'max',
+            'gravity' => 'face',
+            'crop' => 'thumb',
+        ]]);
 
 
         return $this->respondSuccess('Imagen subida correctamente');
