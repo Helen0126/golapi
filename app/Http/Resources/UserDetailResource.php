@@ -20,7 +20,7 @@ class UserDetailResource extends JsonResource
             'name' => $this->name,
             $this->mergeWhen($this->relationLoaded('person'), [
                 'person' => new PersonResource($this->whenLoaded('person')),
-                'avatar' => $this->fetchFirstMedia() ?? 'https://ui-avatars.com/api/?name=' . $this->person->getFirstNameAndLastName(),
+                'avatar' => $this->fetchFirstMedia()->file_url ?? 'https://ui-avatars.com/api/?name=' . $this->person->getFirstNameAndLastName(),
             ]),
             'roles' => $this->getRoleNames(),
         ];
