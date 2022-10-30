@@ -167,7 +167,7 @@ class Handler extends ExceptionHandler
             return $this->apiResponse(
                 [
                     'success' => false,
-                    'message' => "Error en la Matrix. Vuelva mas tarde.",
+                    'message' => "Error en la Matrix. Vuelva mas tarde: ".$exception->getMessage(),
                     'exception' => $exception
                 ],
                 500

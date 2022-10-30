@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Laravolt\Avatar\Avatar;
 
 class UserDetailResource extends JsonResource
 {
@@ -16,7 +15,6 @@ class UserDetailResource extends JsonResource
      */
     public function toArray($request)
     {
-        $avatar = new Avatar();
         return [
             'id' => $this->id,
             'name' => $this->name,
