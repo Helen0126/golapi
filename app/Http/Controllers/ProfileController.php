@@ -51,7 +51,7 @@ class ProfileController extends ApiController
         Auth::user()->attachMedia($request->avatar, ['transformation' => [
             'width' => 350,
             'height' => 350,
-            'radius' => 'max',
+            // 'radius' => 'max',
             'gravity' => 'face',
             'crop' => 'thumb',
         ]]);
