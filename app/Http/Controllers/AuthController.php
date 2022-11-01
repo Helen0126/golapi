@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -47,5 +48,27 @@ class AuthController extends ApiController
         }
 
         return $this->respondToken($user->createToken($request->device_name ?? $request->name)->plainTextToken);
+    }
+
+    /**
+     * Cerrar sesión del sistema.
+     * @return \Illuminate\Http\Response
+     *
+     * @OA\Post(
+     *     path="/auth/logout",
+     *     tags={"auth"},
+     *     security={{"sanctum":{}}},
+     *     summary="Destruye el token de la sesion.",
+     *     @OA\Response(
+     *         response=201,
+     *         description="Ok.",
+     *         @OA\JsonContent()
+     *     )
+     * )
+     */
+    public function logout()
+    {
+        Auth::user()->tokens()->delete();
+        return $this->respondSuccess("Sesion cerrada correctamente.");
     }
 }

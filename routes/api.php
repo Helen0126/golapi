@@ -17,6 +17,9 @@ use App\Http\Controllers\ProfileController;
 
 Route::prefix('/auth')->group(function () {
     Route::post('login', [AuthController::class, 'login'])->name('auth.login');
+    Route::post('logout', [AuthController::class, 'logout'])
+        ->middleware(['auth:sanctum'])
+        ->name('auth.logout');
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
