@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('materials', function (Blueprint $table) {
+        Schema::create('topics', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('event_id')->constrained();
+            $table->foreignId('grade_id')->constrained();
             $table->string('name', 100);
             // $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('materials');
+        Schema::dropIfExists('topics');
     }
 };
