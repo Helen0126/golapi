@@ -15,9 +15,13 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->foreignId('gol_id')->nullable()->constrained();
             $table->foreignId('person_id')->constrained();
             $table->string('name');
             $table->string('password');
+            $table->boolean('is_active')->default(false);
+            $table->boolean('is_tutor')->default(false);
+
             // $table->rememberToken();
             // $table->timestamps();
         });
