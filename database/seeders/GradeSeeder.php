@@ -20,6 +20,9 @@ class GradeSeeder extends Seeder
             // for ($i = 1; $i <= 10; $i++) {
             Grade::create(['name' => 1, 'school_id' => $item->id]);
             Grade::create(['name' => 2, 'school_id' => $item->id]);
+            Grade::create(['name' => 3, 'school_id' => $item->id]);
+            Grade::create(['name' => 4, 'school_id' => $item->id]);
+            Grade::create(['name' => 5, 'school_id' => $item->id]);
             // }
         });
     }
