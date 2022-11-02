@@ -16,7 +16,7 @@ class UserDetailResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            // 'id' => $this->id,
             'name' => $this->name,
             $this->mergeWhen($this->relationLoaded('person'), [
                 'person' => new PersonResource($this->whenLoaded('person')),

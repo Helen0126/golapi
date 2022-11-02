@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('programmed_at');
+            $table->char('status', 1)->default('P');
             $table->timestamp('start_at')->nullable();
             $table->timestamp('end_at')->nullable();
             // $table->timestamps();
