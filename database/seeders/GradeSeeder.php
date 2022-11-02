@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Cycle;
+use App\Models\Grade;
 use App\Models\School;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CycleSeeder extends Seeder
+class GradeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,9 +17,10 @@ class CycleSeeder extends Seeder
     public function run()
     {
         School::get()->each(function ($item, $key) {
-            for ($i = 1; $i <= 10; $i++) {
-                Cycle::create(['name' => $i, 'school_id' => $item->id]);
-            }
+            // for ($i = 1; $i <= 10; $i++) {
+            Grade::create(['name' => 1, 'school_id' => $item->id]);
+            Grade::create(['name' => 2, 'school_id' => $item->id]);
+            // }
         });
     }
 }

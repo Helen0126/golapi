@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cycles', function (Blueprint $table) {
+        Schema::create('grades', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('school_id')->constrained();
             $table->tinyInteger('name');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cycles');
+        Schema::dropIfExists('grades');
     }
 };
