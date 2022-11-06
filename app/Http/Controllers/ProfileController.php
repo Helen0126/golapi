@@ -81,6 +81,7 @@ class ProfileController extends ApiController
         if (Auth::user()->hasRole('Administrador')) {
             return $this->respondWithResource(new UserDetailResource(Auth::user()->load(['person'])));
         } else {
+            return "xdxd";
             return $this->respondWithResource(new UserDetailResource(Auth::user()->load(['person.grade'])));
         }
     }
