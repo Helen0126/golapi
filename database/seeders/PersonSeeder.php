@@ -16,9 +16,9 @@ class PersonSeeder extends Seeder
     public function run()
     {
         $person = Person::create([
-            'names' => 'Neisser David',
-            'last_names' => 'Rey Gutierrez',
-            'code' => 201410859,
+            'names' => 'Pastor Name',
+            'last_names' => 'Apellido Pastor',
+            'code' => 123456789,
             'email' => 'neisserrey@upeu.edu.pe',
             'phone' => 123456789,
         ]);
