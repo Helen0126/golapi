@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Tutor\TutorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +28,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('user/upload-avatar', 'uploadAvatar');
         Route::get('user/profile', 'showProfile');
     });
+
+    Route::apiResource('tutors', TutorController::class)->only(['index']);
 });

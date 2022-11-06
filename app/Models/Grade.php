@@ -21,4 +21,9 @@ class Grade extends Model
      * @var array
      */
     protected $fillable = ['name', 'school_id'];
+
+    public function school()
+    {
+        return $this->belongsTo(School::class);
+    }
 }

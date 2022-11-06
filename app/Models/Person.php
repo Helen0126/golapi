@@ -40,6 +40,11 @@ class Person extends Model
         $first_name = Str::of($this->names)->explode(' ')[0];
         $last_name  = Str::of($this->last_names)->explode(' ')[0];
 
-        return $first_name.'+'.$last_name;
+        return $first_name . '+' . $last_name;
+    }
+
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class);
     }
 }

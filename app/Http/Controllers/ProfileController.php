@@ -78,6 +78,10 @@ class ProfileController extends ApiController
      */
     public function showProfile()
     {
-        return $this->respondWithResource(new UserDetailResource(Auth::user()->load('person')));
+        if (Auth::user()->hasRole('Administrador')) {
+            return $this->respondWithResource(new UserDetailResource(Auth::user()->load(['person'])));
+        } else {
+            return $this->respondWithResource(new UserDetailResource(Auth::user()->load(['person.grade'])));
+        }
     }
 }

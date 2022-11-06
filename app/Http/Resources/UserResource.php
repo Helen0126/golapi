@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PersonResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,15 +16,12 @@ class PersonResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'names' => $this->names,
-            'last_names' => $this->last_names,
-            'code' => $this->code,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            $this->mergeWhen($this->relationLoaded('grade'), [
-                'grade' => $this->grade->name,
-                'school' => $this->grade->school->name,
+            'name' => $this->name,
+            $this->mergeWhen($this->relationLoaded('person'), [
+                'person' => new PersonResource($this->whenLoaded('person')),
+                'avatar' => $this->fetchFirstMedia()->file_url ?? 'https://ui-avatars.com/api/?name=' . $this->person->getFirstNameAndLastName(),
             ]),
+            'is_active' => $this->is_active,
         ];
     }
 }

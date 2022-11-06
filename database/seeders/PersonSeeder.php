@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Person;
 use Illuminate\Database\Seeder;
-use App\Actions\SaveUserFromPerson;
 
 class PersonSeeder extends Seeder
 {
@@ -21,9 +20,14 @@ class PersonSeeder extends Seeder
             'code' => 123456789,
             'email' => 'neisserrey@upeu.edu.pe',
             'phone' => 123456789,
+            'grade_id' => 1
         ]);
 
-        $user = SaveUserFromPerson::make()->handle($person);
+        $user = $person->user()->create([
+            'name' => $person->code,
+            'password' => 'password',
+            'is_active' => true,
+        ]);
 
         $user->assignRole('Administrador');
     }
