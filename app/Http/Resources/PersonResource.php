@@ -22,7 +22,7 @@ class PersonResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             $this->mergeWhen($this->relationLoaded('grade'), [
-                'grade' => $this->grade ? $this->grade->name : '',
+                'grade' => 'xdxdxdxd',
                 'school' => $this->grade->name ? $this->grade->school->name : '',
             ]),
         ];
