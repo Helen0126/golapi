@@ -29,5 +29,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('user/profile', 'showProfile');
     });
 
-    Route::apiResource('tutors', TutorController::class)->only(['index']);
+    Route::apiResource('tutors', TutorController::class)->only(['index','store']);
 });

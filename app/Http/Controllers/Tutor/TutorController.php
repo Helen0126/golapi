@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers\Tutor;
 
+use App\Actions\SaveUserFromPerson;
 use App\Http\Controllers\ApiController;
+use App\Http\Requests\TutorStoreRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Grade;
+use App\Models\Person;
+use App\Models\School;
 use App\Models\User;
+use DB;
 use Illuminate\Http\Request;
 
 class TutorController extends ApiController
@@ -16,18 +22,19 @@ class TutorController extends ApiController
      */
     public function index()
     {
-        return $this->respondWithResourceCollection(UserResource::collection(User::with('person')->get()));
+        return $this->respondWithResourceCollection(UserResource::collection(User::role('Tutor')->with('person.grade')->get()));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(TutorStoreRequest $request)
     {
-        //
+        return DB::transaction(function () use ($request) {
+            $grade = Grade::whereName($request->grade_name)->whereSchoolId($request->school_id)->first();
+            $person = $grade->people()->create($request->validated());
+            $user = SaveUserFromPerson::make()->handle($person);
+            $user->assignRole('Tutor');
+            return $this->respondCreated('OK!');
+        });
     }
 
     /**

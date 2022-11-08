@@ -152,13 +152,13 @@ trait ApiResponseTrait
     /**
      * Respond with created.
      *
-     * @param $data
+     * @param $message
      *
      * @return JsonResponse
      */
-    protected function respondCreated($data)
+    protected function respondCreated($message)
     {
-        return $this->apiResponse($data, 201);
+        return $this->apiResponse(['success' => true, 'message' => $message], 201);
     }
 
     /**

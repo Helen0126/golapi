@@ -10,11 +10,13 @@ class SaveUserFromPerson
 {
     use AsAction;
 
-    public function handle(Person $person): User
+    public function handle(Person $person, bool $is_active = false): User
     {
         return $person->user()->create([
             'name' => $person->code,
             'password' => 'password',
+            'is_active' => $is_active,
+
         ]);
     }
 }
