@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->foreignId('gol_id')->constrained();
+            $table->foreignId('topic_id')->constrained();
+            $table->string('name', 100);
+            $table->string('banner', 100);
             $table->date('programmed_at');
             $table->char('status', 1)->default('P');
             $table->timestamp('start_at')->nullable();

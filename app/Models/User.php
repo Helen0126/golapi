@@ -81,18 +81,13 @@ class User extends Authenticatable
         'is_active' => 'boolean',
     ];
 
-    public function setPasswordAttribute(string $password)
-    {
-        $this->attributes['password'] = Hash::make($password);
-    }
-
-    /**
-     * Get the person that owns the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function person(): BelongsTo
     {
         return $this->belongsTo(Person::class);
+    }
+
+    public function setPasswordAttribute(string $password)
+    {
+        $this->attributes['password'] = Hash::make($password);
     }
 }

@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('people', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('grade_id')->nullable()->constrained();
+            $table->foreignId('cycle_id')->nullable()->constrained();
+            $table->foreignId('gol_id')->nullable()->constrained();
             $table->string('names', 100);
             $table->string('last_names', 100);
             $table->integer('code', false, true)->unique();

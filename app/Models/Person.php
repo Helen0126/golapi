@@ -25,14 +25,19 @@ class Person extends Model
      */
     protected $fillable = ['names', 'last_names', 'code', 'email', 'phone'];
 
-    /**
-     * Get the user associated with the Person
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
     public function user(): HasOne
     {
         return $this->hasOne(User::class);
+    }
+
+    public function cycle()
+    {
+        return $this->belongsTo(Cycle::class)->withDefault();
+    }
+
+    public function gol()
+    {
+        return $this->belongsTo(Gol::class)->withDefault();
     }
 
     public function getFirstNameAndLastName()
@@ -41,10 +46,5 @@ class Person extends Model
         $last_name  = Str::of($this->last_names)->explode(' ')[0];
 
         return $first_name . '+' . $last_name;
-    }
-
-    public function grade()
-    {
-        return $this->belongsTo(Grade::class)->withDefault();
     }
 }

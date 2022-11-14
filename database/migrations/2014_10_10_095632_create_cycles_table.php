@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('grades', function (Blueprint $table) {
+        Schema::create('cycles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('school_id')->constrained();
             $table->tinyInteger('name');
+            $table->tinyInteger('grade');
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grades');
+        Schema::dropIfExists('cycles');
     }
 };

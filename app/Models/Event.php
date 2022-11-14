@@ -15,4 +15,19 @@ class Event extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
+    }
+
+    public function gol()
+    {
+        return $this->belongsTo(Gol::class);
+    }
+
+    public function people()
+    {
+        return $this->belongsToMany(Person::class);
+    }
 }

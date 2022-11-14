@@ -23,4 +23,9 @@ class School extends Model
      * @var array
      */
     protected $fillable = ['name'];
+
+    public function cycles()
+    {
+        return $this->hasMany(Cycle::class);
+    }
 }

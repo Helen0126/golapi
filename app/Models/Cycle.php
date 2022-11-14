@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Grade extends Model
+class Cycle extends Model
 {
     use HasFactory;
     /**
@@ -20,7 +20,7 @@ class Grade extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'school_id'];
+    protected $fillable = ['name', 'school_id', 'grade'];
 
     public function school()
     {

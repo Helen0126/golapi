@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('topics', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('grade_id')->constrained();
             $table->string('name', 100);
+            $table->string('description', 100)->nullable();
             // $table->timestamps();
         });
     }

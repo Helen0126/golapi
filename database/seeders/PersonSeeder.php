@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Person;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 class PersonSeeder extends Seeder
@@ -29,6 +30,6 @@ class PersonSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        $user->assignRole('Administrador');
+        $user->assignRole(Role::ADMINISTRADOR);
     }
 }
