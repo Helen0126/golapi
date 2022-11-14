@@ -6,9 +6,8 @@ use App\Actions\SaveUserFromPerson;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\TutorStoreRequest;
 use App\Http\Resources\UserResource;
-use App\Models\Grade;
-use App\Models\Person;
-use App\Models\School;
+use App\Models\Cycle;
+use App\Models\Role;
 use App\Models\User;
 use DB;
 use Illuminate\Http\Request;
@@ -22,17 +21,17 @@ class TutorController extends ApiController
      */
     public function index()
     {
-        return $this->respondWithResourceCollection(UserResource::collection(User::role('Tutor')->with('person.grade')->get()));
+        return $this->respondWithResourceCollection(UserResource::collection(User::role(Role::TUTOR)->with('person.cycle')->get()));
     }
 
 
     public function store(TutorStoreRequest $request)
     {
         return DB::transaction(function () use ($request) {
-            $grade = Grade::whereName($request->grade_name)->whereSchoolId($request->school_id)->first();
-            $person = $grade->people()->create($request->validated());
+            $cycle = Cycle::whereName($request->cycle)->whereSchoolId($request->school_id)->first();
+            $person = $cycle->people()->create($request->validated());
             $user = SaveUserFromPerson::make()->handle($person);
-            $user->assignRole('Tutor');
+            $user->assignRole(Role::TUTOR);
             return $this->respondCreated('OK!');
         });
     }
@@ -63,11 +62,13 @@ class TutorController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(int $id)
     {
-        //
+        // $user = User::findOrFail($id);
+        // $user->person()->dissociate();
+        // return $user->delete();
     }
 }

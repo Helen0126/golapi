@@ -24,8 +24,8 @@ class TutorStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'school_id'=>'required|exists:grades,school_id',
-            'grade_name'=>'required|exists:grades,name',
+            'school_id'=>'required|exists:cycles,school_id',
+            'cycle'=>'required|exists:cycles,name',
             'names'=>'required',
             'last_names'=>'required',
             'code'=>'required|numeric|unique:people',

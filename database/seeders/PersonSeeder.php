@@ -25,7 +25,7 @@ class PersonSeeder extends Seeder
         ]);
 
         $user = $person->user()->create([
-            'name' => $person->code,
+            'name' => $person->getFirstNameAndLastNameBy('.'),
             'password' => 'password',
             'is_active' => true,
         ]);

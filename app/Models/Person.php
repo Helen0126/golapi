@@ -40,11 +40,16 @@ class Person extends Model
         return $this->belongsTo(Gol::class)->withDefault();
     }
 
-    public function getFirstNameAndLastName()
+    public function events()
     {
-        $first_name = Str::of($this->names)->explode(' ')[0];
-        $last_name  = Str::of($this->last_names)->explode(' ')[0];
+        return $this->belongsToMany(Event::class);
+    }
 
-        return $first_name . '+' . $last_name;
+    public function getFirstNameAndLastNameBy(string $dotOrPlus)
+    {
+        $first_name = Str::of(Str::lower(trim($this->names)))->explode(' ')[0];
+        $last_name  = Str::of(Str::lower(trim($this->last_names)))->explode(' ')[0];
+
+        return $first_name . $dotOrPlus . $last_name;
     }
 }
