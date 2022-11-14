@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\Tutor\TutorController;
 
 /*
@@ -29,5 +30,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('user/profile', 'showProfile');
     });
 
-    Route::apiResource('tutors', TutorController::class)->only(['index', 'store', 'destroy']);
+    Route::apiResource('tutors', TutorController::class)->only(['index', 'store']);
+
+    Route::apiResource('schools', SchoolController::class)->only(['index']);
 });
