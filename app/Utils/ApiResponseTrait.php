@@ -130,7 +130,8 @@ trait ApiResponseTrait
         return $this->apiResponse(
             [
                 'success' => true,
-                'result' => $resourceCollection->response()->getData()
+                'result' => $resourceCollection->response()->getData(),
+                'message'=> $message
             ],
             $statusCode,
             $headers

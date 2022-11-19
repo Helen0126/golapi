@@ -45,6 +45,11 @@ class Person extends Model
         return $this->belongsToMany(Event::class);
     }
 
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
+
     public function getFirstNameAndLastNameBy(string $dotOrPlus)
     {
         $first_name = Str::of(Str::lower(trim($this->names)))->explode(' ')[0];

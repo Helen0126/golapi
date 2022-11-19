@@ -21,7 +21,7 @@ class PersonSeeder extends Seeder
             'code' => 123456789,
             'email' => 'neisserrey@upeu.edu.pe',
             'phone' => 123456789,
-            // 'grade_id' => 1
+            'type_id' => 1
         ]);
 
         $user = $person->user()->create([

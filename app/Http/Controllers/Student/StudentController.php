@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers\Tutor;
 
+use DB;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\Cycle;
+use Illuminate\Http\Request;
 use App\Actions\SaveUserFromPerson;
+use App\Http\Resources\UserResource;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\TutorStoreRequest;
-use App\Http\Resources\PersonResource;
-use App\Http\Resources\UserResource;
-use App\Models\Cycle;
-use App\Models\Person;
-use App\Models\Role;
-use App\Models\Type;
-use App\Models\User;
-use DB;
-use Illuminate\Http\Request;
 
-class TutorController extends ApiController
+class StudentController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -24,8 +21,7 @@ class TutorController extends ApiController
      */
     public function index()
     {
-        $tutorCollection = Person::with('cycle')->whereRelation('type', 'id', '=', Type::CAPELLAN)->get();
-        return $this->respondWithResourceCollection(PersonResource::collection($tutorCollection));
+        return $this->respondWithResourceCollection(UserResource::collection(User::role(Role::ESTUDIANTE)->with('person.cycle')->get()));
     }
 
 
@@ -34,8 +30,8 @@ class TutorController extends ApiController
         return DB::transaction(function () use ($request) {
             $cycle = Cycle::whereName($request->cycle)->whereSchoolId($request->school_id)->first();
             $person = $cycle->people()->create($request->validated());
-            $user = SaveUserFromPerson::make()->handle($person, true);
-            $user->assignRole(Role::TUTOR);
+            $user = SaveUserFromPerson::make()->handle($person, false);
+            $user->assignRole(Role::ESTUDIANTE);
             return $this->respondCreated('OK!');
         });
     }
