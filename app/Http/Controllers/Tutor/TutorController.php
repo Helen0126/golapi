@@ -68,6 +68,8 @@ class TutorController extends ApiController
      */
     public function destroy(int $id)
     {
+        $person = Person::findOrFail($id);
+        $person->delete();
         // $user = User::findOrFail($id);
         // $user->person()->dissociate();
         // return $user->delete();
