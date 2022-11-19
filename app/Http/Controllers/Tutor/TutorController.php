@@ -24,7 +24,7 @@ class TutorController extends ApiController
      */
     public function index()
     {
-        $tutorCollection = Person::with('cycle')->whereRelation('type', 'id', '=', Type::CAPELLAN)->get();
+        $tutorCollection = Person::with('cycle')->whereRelation('type', 'id', '=', Type::TUTOR)->get();
         return $this->respondWithResourceCollection(PersonResource::collection($tutorCollection));
     }
 
