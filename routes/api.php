@@ -30,7 +30,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('user/profile', 'showProfile');
     });
 
-    Route::apiResource('tutors', TutorController::class)->only(['index', 'store']);
+    Route::apiResource('tutors', TutorController::class)->only(['index', 'store', 'update']);
 
     Route::apiResource('schools', SchoolController::class)->only(['index']);
 });

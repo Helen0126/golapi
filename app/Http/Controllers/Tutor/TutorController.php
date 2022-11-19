@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tutor;
 use App\Actions\SaveUserFromPerson;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\TutorStoreRequest;
+use App\Http\Requests\TutorUpdateRequest;
 use App\Http\Resources\PersonResource;
 use App\Http\Resources\UserResource;
 use App\Models\Cycle;
@@ -51,16 +52,12 @@ class TutorController extends ApiController
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
+
+    public function update(TutorUpdateRequest $request, int $id)
     {
-        //
+        $tutor = Person::findOrFail($id);
+        $tutor->update($request->validated());
+        return $tutor;
     }
 
     /**
