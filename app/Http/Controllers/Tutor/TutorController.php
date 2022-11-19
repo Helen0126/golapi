@@ -69,11 +69,14 @@ class TutorController extends ApiController
     public function destroy(int $id)
     {
         $person = Person::findOrFail($id);
-        $person->delete();
-        if (!$person->user->exists() || $person->user == null) {
+        if ($person->user) {
             return $this->respondError("Este tutor tiene un usuario relacionado.");
+        } else {
+
+            $person->delete();
+            return $this->respondSuccess("Tutor eliminado correctamente.");
         }
-        return $this->respondSuccess("Tutor eliminado correctamente.");
+
         // $user = User::findOrFail($id);
         // $user->person()->dissociate();
         // return $user->delete();
