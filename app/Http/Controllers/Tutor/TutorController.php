@@ -57,7 +57,7 @@ class TutorController extends ApiController
     {
         $tutor = Person::findOrFail($id);
         $tutor->update($request->validated());
-        return $tutor;
+        return $this->respondSuccess("Tutor Actualizado correctamente!");
     }
 
     /**
