@@ -70,6 +70,10 @@ class TutorController extends ApiController
     {
         $person = Person::findOrFail($id);
         $person->delete();
+        if (!$person->user->exists() || $person->user == null) {
+            return $this->respondError("Este tutor tiene un usuario relacionado.");
+        }
+        return $this->respondSuccess("Tutor eliminado correctamente.");
         // $user = User::findOrFail($id);
         // $user->person()->dissociate();
         // return $user->delete();
