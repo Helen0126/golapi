@@ -80,6 +80,7 @@ class GolController extends ApiController
      */
     public function destroy(Gol $gol)
     {
+        $gol->detachMedia();
         $gol->delete();
         return $this->respondSuccess("Gol eliminado correctamente");
     }
