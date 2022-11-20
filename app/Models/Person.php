@@ -36,11 +36,6 @@ class Person extends Model
         return $this->belongsTo(Cycle::class)->withDefault();
     }
 
-    public function gol()
-    {
-        return $this->belongsToThrough(Gol::class, Cycle::class)->withDefault();
-    }
-
     public function events()
     {
         return $this->belongsToMany(Event::class);
