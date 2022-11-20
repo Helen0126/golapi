@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Gol\GolController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\Tutor\TutorController;
@@ -31,6 +32,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::apiResource('tutors', TutorController::class)->except(['show']);
-
+    Route::apiResource('gols', GolController::class)->except(['show']);
     Route::apiResource('schools', SchoolController::class)->only(['index']);
 });
