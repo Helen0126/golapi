@@ -24,7 +24,7 @@ class PersonResource extends JsonResource
             $this->mergeWhen($this->relationLoaded('cycle'), [
                 'cycle' => $this->cycle->name ?? '',
                 'school' => $this->cycle->school->name ?? '',
-                'gol' => $this->cycle->gol->name,
+                'gol' => $this->cycle->gol ? $this->cycle->gol : '',
             ]),
             // $this->mergeWhen($this->relationLoaded('gol'), [
             //     'gol' => $this->gol->name ?? '',
