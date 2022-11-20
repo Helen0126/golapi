@@ -31,4 +31,9 @@ class Cycle extends Model
     {
         return $this->hasMany(Person::class);
     }
+
+    public function gol()
+    {
+        return $this->belongsTo(Gol::class)->withDefault();
+    }
 }

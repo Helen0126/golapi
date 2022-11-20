@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Str;
+use Znck\Eloquent\Traits\BelongsToThrough;
 
 class Person extends Model
 {
-    use HasFactory;
+    use HasFactory, BelongsToThrough;
 
     /**
      * Indicates if the model should be timestamped.
@@ -37,7 +38,7 @@ class Person extends Model
 
     public function gol()
     {
-        return $this->belongsTo(Gol::class)->withDefault();
+        return $this->belongsToThrough(Gol::class, Cycle::class)->withDefault();
     }
 
     public function events()
