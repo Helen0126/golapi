@@ -24,6 +24,8 @@ class GolStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'school_id' => 'required|exists:cycles,school_id',
+            'cycle' => 'required|exists:cycles,name',
             'name' => 'required|unique:gols',
             'chant' => 'required',
             'motto' => 'required',

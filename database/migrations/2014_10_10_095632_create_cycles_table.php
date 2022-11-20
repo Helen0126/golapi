@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('cycles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('school_id')->constrained();
-            $table->foreignId('gol_id')->nullable()->constrained();
             $table->tinyInteger('name');
             $table->tinyInteger('grade');
         });

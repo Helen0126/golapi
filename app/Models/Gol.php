@@ -27,9 +27,9 @@ class Gol extends Model
     //     return $this->hasMany(Person::class);
     // }
 
-    public function cycles()
+    public function cycle()
     {
-        return $this->hasMany(Cycle::class);
+        return $this->belongsTo(Cycle::class);
     }
 
     public function getPhoto() : string

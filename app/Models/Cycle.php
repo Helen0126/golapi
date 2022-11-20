@@ -34,6 +34,6 @@ class Cycle extends Model
 
     public function gol()
     {
-        return $this->belongsTo(Gol::class)->withDefault();
+        return $this->hasOne(Gol::class);
     }
 }

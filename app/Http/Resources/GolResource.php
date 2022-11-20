@@ -21,6 +21,10 @@ class GolResource extends JsonResource
             'chant' => $this->chant,
             'verse' => $this->verse,
             'photo' => $this->getPhoto(),
+            $this->mergeWhen($this->relationLoaded('cycle'), [
+                'cycle' => $this->cycle->name,
+                'school' => $this->cycle->school->name,
+            ]),
         ];
     }
 }

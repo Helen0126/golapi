@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('gols', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->foreignId('cycle_id')->unique()->constrained();
             $table->string('name', 50);
             $table->string('motto', 100);
             $table->string('chant', 50);
