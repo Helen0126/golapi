@@ -24,8 +24,6 @@ class GolUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'school_id' => 'required|exists:cycles,school_id',
-            // 'cycle' => 'required|exists:cycles,name',
             'name' => 'required|unique:gols,name,' . $this->name . ',name',
             'chant' => 'required',
             'motto' => 'required',

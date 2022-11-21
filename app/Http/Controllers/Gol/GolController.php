@@ -47,18 +47,12 @@ class GolController extends ApiController
     public function update(GolUpdateRequest $request, Gol $gol)
     {
         return DB::transaction(function () use ($request, $gol) {
+            $gol->update($request->validated());
 
-            $cycle = Cycle::whereName($request->cycle)->whereSchoolId($request->school_id)->first();
-
-            if ($cycle->gol != null) {
-                return $this->respondError("Este ciclo ya tiene un gol asociado.", 403);
-            }
-
-            $gol = $cycle->gol()->save($gol);
             if ($request->photo != null) {
                 $gol->attachMedia($request->photo);
             }
-            return $this->respondCreated("Gol actualizado correctamente.");
+            return $this->respondSuccess("Gol actualizado correctamente.");
         });
     }
 
