@@ -50,6 +50,7 @@ class GolController extends ApiController
             $gol->update($request->validated());
 
             if ($request->photo != null) {
+                $gol->detachMedia();
                 $gol->attachMedia($request->photo);
             }
             return $this->respondSuccess("Gol actualizado correctamente.");
