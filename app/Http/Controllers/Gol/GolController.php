@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Gol;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\GolStoreRequest;
+use App\Http\Requests\GolUpdateRequest;
 use App\Http\Resources\GolResource;
 use App\Models\Cycle;
 use App\Models\Gol;
@@ -31,20 +32,20 @@ class GolController extends ApiController
                 return $this->respondError("Este ciclo ya tiene un gol asociado.", 403);
             }
 
-            if (Auth::user()->hasRole(Role::ADMINISTRADOR)) {
-                $gol = $cycle->gol()->create($request->validated());
-                if ($request->photo != null) {
-                    $gol->attachMedia($request->photo);
-                }
+            $gol = $cycle->gol()->create($request->validated());
+            if ($request->photo != null) {
+                $gol->attachMedia($request->photo);
             }
+            // if (Auth::user()->hasRole(Role::ADMINISTRADOR)) {
+            // }
 
-            if (Auth::user()->hasRole(Role::TUTOR)) {
-                $tutor = Auth::user()->person;
-                $gol->people()->save($tutor->cycle);
-                if ($request->photo != null) {
-                    $gol->attachMedia($request->photo);
-                }
-            }
+            // if (Auth::user()->hasRole(Role::TUTOR)) {
+            //     $tutor = Auth::user()->person;
+            //     $gol->people()->save($tutor->cycle);
+            //     if ($request->photo != null) {
+            //         $gol->attachMedia($request->photo);
+            //     }
+            // }
             return $this->respondCreated("Gol guardado correctamente.");
         });
     }
@@ -60,16 +61,22 @@ class GolController extends ApiController
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Gol  $gol
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Gol $gol)
+    public function update(GolUpdateRequest $request, Gol $gol)
     {
-        //
+        return DB::transaction(function () use ($request, $gol) {
+
+            $cycle = Cycle::whereName($request->cycle)->whereSchoolId($request->school_id)->first();
+
+            if ($cycle->gol != null) {
+                return $this->respondError("Este ciclo ya tiene un gol asociado.", 403);
+            }
+
+            $gol = $cycle->gol()->save($gol);
+            if ($request->photo != null) {
+                $gol->attachMedia($request->photo);
+            }
+            return $this->respondCreated("Gol actualizado correctamente.");
+        });
     }
 
     /**
