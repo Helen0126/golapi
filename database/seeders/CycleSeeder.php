@@ -18,15 +18,15 @@ class CycleSeeder extends Seeder
     {
         School::get()->each(function ($item, $key) {
             // for ($i = 1; $i <= 10; $i++) {
-            Cycle::create(['name' => 1, 'school_id' => $item->id, 'grade' => 1]);
+            // Cycle::create(['name' => 1, 'school_id' => $item->id, 'grade' => 1]);
             Cycle::create(['name' => 2, 'school_id' => $item->id, 'grade' => 1]);
-            Cycle::create(['name' => 3, 'school_id' => $item->id, 'grade' => 2]);
+            // Cycle::create(['name' => 3, 'school_id' => $item->id, 'grade' => 2]);
             Cycle::create(['name' => 4, 'school_id' => $item->id, 'grade' => 2]);
-            Cycle::create(['name' => 5, 'school_id' => $item->id, 'grade' => 3]);
+            // Cycle::create(['name' => 5, 'school_id' => $item->id, 'grade' => 3]);
             Cycle::create(['name' => 6, 'school_id' => $item->id, 'grade' => 3]);
-            Cycle::create(['name' => 7, 'school_id' => $item->id, 'grade' => 4]);
+            // Cycle::create(['name' => 7, 'school_id' => $item->id, 'grade' => 4]);
             Cycle::create(['name' => 8, 'school_id' => $item->id, 'grade' => 4]);
-            Cycle::create(['name' => 9, 'school_id' => $item->id, 'grade' => 5]);
+            // Cycle::create(['name' => 9, 'school_id' => $item->id, 'grade' => 5]);
             Cycle::create(['name' => 10, 'school_id' => $item->id, 'grade' => 5]);
             // }
         });

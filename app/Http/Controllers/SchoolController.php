@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\SchoolResource;
 use App\Models\School;
-use Illuminate\Http\Request;
 
 class SchoolController extends ApiController
 {
