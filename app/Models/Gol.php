@@ -15,7 +15,7 @@ class Gol extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'motto', 'chant', 'verse'];
+    protected $fillable = ['name', 'motto', 'chant', 'verse', 'cycle_id'];
 
     public function events()
     {
@@ -32,7 +32,7 @@ class Gol extends Model
         return $this->belongsTo(Cycle::class);
     }
 
-    public function getPhoto() : string
+    public function getPhoto(): string
     {
         return $this->fetchFirstMedia()->file_url ?? "";
     }

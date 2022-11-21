@@ -10,6 +10,6 @@ class SchoolController extends ApiController
 
     public function index()
     {
-        return $this->respondWithResourceCollection(SchoolResource::collection(School::with('cycles')->get()), "Lista de escuelas");
+        return $this->respondWithResourceCollection(SchoolResource::collection(School::with('cycles','cycles.gol')->get()), "Lista de escuelas");
     }
 }

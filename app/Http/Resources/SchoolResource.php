@@ -17,7 +17,7 @@ class SchoolResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'cycles' => new CycleResource($this->whenLoaded('cycles'))
+            'cycles' => CycleResource::collection(($this->whenLoaded('cycles')))
         ];
     }
 }

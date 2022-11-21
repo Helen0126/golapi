@@ -25,27 +25,10 @@ class GolController extends ApiController
     {
         return DB::transaction(function () use ($request) {
 
-            // $gol = Gol::create($request->validated());
-            $cycle = Cycle::whereName($request->cycle)->whereSchoolId($request->school_id)->first();
-
-            if ($cycle->gol != null) {
-                return $this->respondError("Este ciclo ya tiene un gol asociado.", 403);
-            }
-
-            $gol = $cycle->gol()->create($request->validated());
+            $gol = Gol::create($request->validated());
             if ($request->photo != null) {
                 $gol->attachMedia($request->photo);
             }
-            // if (Auth::user()->hasRole(Role::ADMINISTRADOR)) {
-            // }
-
-            // if (Auth::user()->hasRole(Role::TUTOR)) {
-            //     $tutor = Auth::user()->person;
-            //     $gol->people()->save($tutor->cycle);
-            //     if ($request->photo != null) {
-            //         $gol->attachMedia($request->photo);
-            //     }
-            // }
             return $this->respondCreated("Gol guardado correctamente.");
         });
     }
