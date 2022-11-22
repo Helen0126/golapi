@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class WeekRequest extends FormRequest
@@ -24,8 +25,15 @@ class WeekRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'event_date' => 'required|date'
+            // 'name' => 'required',
+            'event_date' => 'required|date|unique:weeks'
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'event_date' => Carbon::parse(now())->next(Carbon::FRIDAY),
+        ]);
     }
 }

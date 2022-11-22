@@ -34,29 +34,6 @@ class WeekController extends ApiController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Week  $week
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Week $week)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Week  $week
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Week $week)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Week  $week
@@ -64,6 +41,7 @@ class WeekController extends ApiController
      */
     public function destroy(Week $week)
     {
-        //
+        $week->delete();
+        $this->respondSuccess("Sesión eliminada correctamente");
     }
 }

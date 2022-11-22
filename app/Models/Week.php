@@ -20,7 +20,7 @@ class Week extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'event_date'];
+    protected $fillable = ['event_date'];
 
     public function topics()
     {

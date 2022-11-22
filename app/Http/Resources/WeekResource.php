@@ -16,7 +16,7 @@ class WeekResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'event_date' => $this->event_date,
             $this->mergeWhen($this->relationLoaded('topics'), [
                 'topics' => new TopicResource($this->topics)
             ]),

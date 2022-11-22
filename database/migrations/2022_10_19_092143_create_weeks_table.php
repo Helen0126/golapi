@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('weeks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 50);
-            $table->date('event_date');
+            // $table->string('name', 50);
+            $table->date('event_date')->unique();
             // $table->timestamps();
         });
     }
