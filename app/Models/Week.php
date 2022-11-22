@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Topic extends Model
+class Week extends Model
 {
     use HasFactory;
 
@@ -15,20 +15,15 @@ class Topic extends Model
      * @var bool
      */
     public $timestamps = false;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'resource_link', 'grade', 'description', 'is_active'];
+    protected $fillable = ['name', 'event_date'];
 
-    protected $casts = [
-        'is_active' => 'boolean',
-    ];
-
-    public function events()
+    public function topics()
     {
-        return $this->hasMany(Event::class);
+        return $this->hasMany(Topic::class);
     }
 }
