@@ -42,6 +42,6 @@ class WeekController extends ApiController
     public function destroy(Week $week)
     {
         $week->delete();
-        $this->respondSuccess("Sesión eliminada correctamente");
+        return $this->respondSuccess("Sesión eliminada correctamente");
     }
 }
