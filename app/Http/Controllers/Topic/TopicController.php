@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Topic;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Requests\TopicRequest;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 
@@ -18,17 +19,12 @@ class TopicController extends ApiController
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(TopicRequest $request, Topic $topic)
     {
-        //
+        $topic->fill($request->validated());
+        $topic->save();
+        return $this->respondSuccess("Tema guardado correctamente!");
     }
-
     /**
      * Display the specified resource.
      *
@@ -40,16 +36,10 @@ class TopicController extends ApiController
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Topic  $topic
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Topic $topic)
+    public function update(TopicRequest $request, Topic $topic)
     {
-        //
+        $topic->update($request->validated());
+        return $this->respondSuccess("Tema actualizado correctamente!");
     }
 
     /**
@@ -60,6 +50,7 @@ class TopicController extends ApiController
      */
     public function destroy(Topic $topic)
     {
-        //
+        $topic->delete();
+        return $this->respondSuccess("Tema eliminado correctamente!");
     }
 }
