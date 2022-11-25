@@ -50,7 +50,8 @@ class TopicController extends ApiController
      */
     public function destroy(Topic $topic)
     {
-        $topic->delete();
+        $topic->is_active = false;
+        $topic->save();
         return $this->respondSuccess("Tema eliminado correctamente!");
     }
 }
