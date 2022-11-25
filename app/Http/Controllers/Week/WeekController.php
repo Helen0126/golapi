@@ -29,7 +29,7 @@ class WeekController extends ApiController
                 # code...
             }
 
-            return $this->respondCreated("Sesion registrada correctamente.");
+            return $this->respondCreated("Temas registrados correctamente.");
         });
     }
 
@@ -42,6 +42,6 @@ class WeekController extends ApiController
     public function destroy(Week $week)
     {
         $week->delete();
-        return $this->respondSuccess("Sesión eliminada correctamente");
+        return $this->respondSuccess("Temas eliminados correctamente");
     }
 }

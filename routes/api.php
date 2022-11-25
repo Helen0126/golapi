@@ -36,7 +36,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('tutors', TutorController::class)->except(['show']);
     Route::apiResource('gols', GolController::class)->except(['show']);
     Route::apiResource('weeks', WeekController::class)->except(['show', 'update']);
-    Route::put('topics/{topic}/create', [TopicController::class, 'store'])->name('auth.login');
-    Route::apiResource('topics', TopicController::class)->except(['show', 'update', 'store']);
+    Route::apiResource('topics', TopicController::class)->only(['update','destroy']);
     Route::apiResource('schools', SchoolController::class)->only(['index']);
 });

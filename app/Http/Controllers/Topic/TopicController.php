@@ -19,12 +19,6 @@ class TopicController extends ApiController
         //
     }
 
-    public function store(TopicRequest $request, Topic $topic)
-    {
-        $topic->fill($request->validated());
-        $topic->save();
-        return $this->respondSuccess("Tema guardado correctamente!");
-    }
     /**
      * Display the specified resource.
      *
