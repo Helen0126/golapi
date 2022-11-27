@@ -35,8 +35,12 @@ class TutorController extends ApiController
         return DB::transaction(function () use ($request) {
             $cycle = Cycle::whereName($request->cycle)->whereSchoolId($request->school_id)->first();
             $person = $cycle->people()->create($request->validated());
-            $user = SaveUserFromPerson::make()->handle($person, true);
-            $user->assignRole(Role::TUTOR);
+
+            if ($cycle->is_active) {
+                $user = SaveUserFromPerson::make()->handle($person, true);
+                $user->assignRole(Role::TUTOR);
+            }
+
             return $this->respondCreated('OK!');
         });
     }

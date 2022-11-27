@@ -20,7 +20,16 @@ class Cycle extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'school_id', 'grade'];
+    protected $fillable = ['name', 'school_id', 'grade', 'is_active'];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 
     public function school()
     {

@@ -20,6 +20,7 @@ class CycleResource extends JsonResource
             'name' => $this->name,
             'school_id' => $this->school_id,
             'grade' => $this->grade,
+            'is_active' => $this->is_active,
             $this->mergeWhen($this->relationLoaded('gol'), [
                 'gol' => new GolResource($this->gol)
             ]),

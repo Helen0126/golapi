@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('school_id')->constrained();
             $table->tinyInteger('name');
             $table->tinyInteger('grade');
+            $table->boolean('is_active');
         });
     }
 
