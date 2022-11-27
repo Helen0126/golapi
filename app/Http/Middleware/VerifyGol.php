@@ -20,9 +20,9 @@ class VerifyGol
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->hasRole(Role::TUTOR)) {
+        if (!Auth::user()->hasRole([Role::ADMINISTRADOR, Role::CAPELLAN])) {
             if (Auth::user()->person->cycle->gol == null) {
-                return $this->respondForbidden('El ciclo al que pertenece este tutor no tiene un gol asignado.');
+                return $this->respondForbidden('El ciclo al que pertenece este usuario no tiene un gol asignado.');
             }
         }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -47,8 +48,10 @@ class AuthController extends ApiController
             ]);
         }
 
-        if ($user->person->cycle->gol == null) {
-            return $this->respondForbidden("El ciclo al que pertenece este tutor no tiene asignado un GOL. Por favor pida al Administrador asignarlo.");
+        if (!$user->hasRole([Role::ADMINISTRADOR, Role::CAPELLAN])) {
+            if ($user->person->cycle->gol == null) {
+                return $this->respondForbidden("El ciclo al que pertenece este usuario no tiene asignado un GOL. Por favor pida al Administrador asignarlo.");
+            }
         }
 
         return $this->respondToken($user->createToken($request->device_name ?? $request->name)->plainTextToken);
