@@ -24,6 +24,9 @@ class CycleResource extends JsonResource
             $this->mergeWhen($this->relationLoaded('gol'), [
                 'gol' => new GolResource($this->gol)
             ]),
+            $this->mergeWhen($this->relationLoaded('school'), [
+                'school' => new SchoolResource($this->school)
+            ]),
         ];
     }
 }
