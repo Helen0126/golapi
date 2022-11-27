@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Gol\GolController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Topic\TopicController;
 use App\Http\Controllers\Tutor\TutorController;
 use App\Http\Controllers\Week\WeekController;
@@ -34,6 +35,7 @@ Route::middleware(['auth:sanctum', 'verifygol'])->group(function () {
     });
 
     Route::apiResource('tutors', TutorController::class)->except(['show']);
+    Route::apiResource('students', StudentController::class)->except(['show']);
     Route::apiResource('gols', GolController::class)->except(['show']);
     Route::apiResource('weeks', WeekController::class)->except(['show', 'update']);
     Route::apiResource('topics', TopicController::class)->only(['update', 'destroy']);

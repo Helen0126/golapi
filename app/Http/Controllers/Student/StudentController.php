@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Tutor;
+namespace App\Http\Controllers\Student;
 
 use DB;
 use App\Models\Role;
@@ -10,7 +10,11 @@ use Illuminate\Http\Request;
 use App\Actions\SaveUserFromPerson;
 use App\Http\Resources\UserResource;
 use App\Http\Controllers\ApiController;
+use App\Http\Requests\StudentUpdateRequest;
 use App\Http\Requests\TutorStoreRequest;
+use App\Http\Resources\PersonResource;
+use App\Models\Person;
+use App\Models\Type;
 
 class StudentController extends ApiController
 {
@@ -21,7 +25,8 @@ class StudentController extends ApiController
      */
     public function index()
     {
-        return $this->respondWithResourceCollection(UserResource::collection(User::role(Role::ESTUDIANTE)->with('person.cycle')->get()));
+        $studentCollection = Person::with('cycle.school', 'cycle.gol')->whereRelation('type', 'id', '=', Type::ESTUDIANTE)->get();
+        return $this->respondWithResourceCollection(PersonResource::collection($studentCollection));
     }
 
 
@@ -30,8 +35,8 @@ class StudentController extends ApiController
         return DB::transaction(function () use ($request) {
             $cycle = Cycle::whereName($request->cycle)->whereSchoolId($request->school_id)->first();
             $person = $cycle->people()->create($request->validated());
-            $user = SaveUserFromPerson::make()->handle($person, false);
-            $user->assignRole(Role::ESTUDIANTE);
+            // $user = SaveUserFromPerson::make()->handle($person, false);
+            // $user->assignRole(Role::ESTUDIANTE);
             return $this->respondCreated('OK!');
         });
     }
@@ -47,28 +52,21 @@ class StudentController extends ApiController
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
+    public function update(StudentUpdateRequest $request, int $id)
     {
-        //
+        $alumno = Person::findOrFail($id);
+        $alumno->update($request->validated());
+        return $this->respondSuccess("Alumno actualizado correctamente!");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(int $id)
     {
-        // $user = User::findOrFail($id);
-        // $user->person()->dissociate();
-        // return $user->delete();
+        $person = Person::findOrFail($id);
+        if ($person->user) {
+            return $this->respondError("Este alumno tiene un usuario relacionado.");
+        }
+
+        $person->delete();
+        return $this->respondSuccess("Alumno eliminado correctamente.");
     }
 }
