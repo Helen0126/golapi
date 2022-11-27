@@ -3,15 +3,11 @@
 namespace App\Http\Controllers\Student;
 
 use DB;
-use App\Models\Role;
 use App\Models\User;
 use App\Models\Cycle;
-use Illuminate\Http\Request;
-use App\Actions\SaveUserFromPerson;
-use App\Http\Resources\UserResource;
 use App\Http\Controllers\ApiController;
+use App\Http\Requests\StudentStoreRequest;
 use App\Http\Requests\StudentUpdateRequest;
-use App\Http\Requests\TutorStoreRequest;
 use App\Http\Resources\PersonResource;
 use App\Models\Person;
 use App\Models\Type;
@@ -30,14 +26,14 @@ class StudentController extends ApiController
     }
 
 
-    public function store(TutorStoreRequest $request)
+    public function store(StudentStoreRequest $request)
     {
         return DB::transaction(function () use ($request) {
             $cycle = Cycle::whereName($request->cycle)->whereSchoolId($request->school_id)->first();
             $person = $cycle->people()->create($request->validated());
             // $user = SaveUserFromPerson::make()->handle($person, false);
             // $user->assignRole(Role::ESTUDIANTE);
-            return $this->respondCreated('OK!');
+            return $this->respondCreated('Alumno registrado correctamente');
         });
     }
 
