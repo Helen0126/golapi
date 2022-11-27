@@ -47,6 +47,10 @@ class AuthController extends ApiController
             ]);
         }
 
+        if ($user->person->cycle->gol == null) {
+            return $this->respondForbidden("El ciclo al que pertenece este tutor no tiene asignado un GOL. Por favor pida al Administrador asignarlo.");
+        }
+
         return $this->respondToken($user->createToken($request->device_name ?? $request->name)->plainTextToken);
     }
 
