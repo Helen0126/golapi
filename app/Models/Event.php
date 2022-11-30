@@ -16,6 +16,13 @@ class Event extends Model
      */
     public $timestamps = false;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['gol_id', 'topic_id', 'name', 'banner', 'programmed_at', 'status', 'start_at', 'end_at'];
+
     public function topic()
     {
         return $this->belongsTo(Topic::class);
@@ -24,10 +31,5 @@ class Event extends Model
     public function gol()
     {
         return $this->belongsTo(Gol::class);
-    }
-
-    public function people()
-    {
-        return $this->belongsToMany(Person::class);
     }
 }

@@ -27,7 +27,7 @@ class StudentUpdateRequest extends FormRequest
         // dd($this->request);
         return [
             'school_id' => 'required|exists:cycles,school_id',
-            'type_id' => 'required|exists:types,id',
+            // 'type_id' => 'required|exists:types,id',
             'cycle' => 'required|exists:cycles,name',
             'names' => 'required',
             'last_names' => 'required',
@@ -37,10 +37,10 @@ class StudentUpdateRequest extends FormRequest
         ];
     }
 
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'type_id' => Type::ESTUDIANTE,
-        ]);
-    }
+    // protected function prepareForValidation()
+    // {
+    //     $this->merge([
+    //         'type_id' => Type::ESTUDIANTE,
+    //     ]);
+    // }
 }

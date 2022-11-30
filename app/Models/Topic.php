@@ -31,4 +31,9 @@ class Topic extends Model
     {
         return $this->hasMany(Event::class);
     }
+
+    public function week()
+    {
+        return $this->belongsTo(Week::class);
+    }
 }

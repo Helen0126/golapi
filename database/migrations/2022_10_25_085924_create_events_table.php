@@ -17,12 +17,12 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->foreignId('gol_id')->constrained();
             $table->foreignId('topic_id')->constrained();
-            $table->string('name', 100);
-            $table->string('banner', 100);
+            $table->string('name', 100)->nullable();
+            $table->string('banner', 100)->nullable();
             $table->date('programmed_at');
-            $table->char('status', 1)->default('P');
-            $table->timestamp('start_at')->nullable();
-            $table->timestamp('end_at')->nullable();
+            $table->char('status', 1)->nullable()->default('P');
+            $table->time('start_at')->nullable();
+            $table->time('end_at')->nullable();
             // $table->timestamps();
         });
     }
