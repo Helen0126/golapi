@@ -38,16 +38,15 @@ class EventController extends ApiController
         if (!$topic) {
             return $this->respondError("No hay un tema definido para esta semana. Espere que el capellán configure el tema.");
         }
-        $new_event = new Event();
-        $new_event->gol_id = $cycle->gol->id;
-        $new_event->status = 'P';
-        $new_event->programmed_at = $topic->week->event_date;
+        $data = [
+            'gol_id' => $cycle->gol->id,
+            'status' => 'P',
+            'programmed_at' => $topic->week->event_date,
+        ];
 
+        return DB::transaction(function () use ($topic, $data) {
 
-
-        return DB::transaction(function () use ($topic, $new_event) {
-
-            $topic->events()->setModel($new_event)->save();
+            $topic->events()->create($data);
             return $this->respondCreated("Evento registrado correctamente");
         });
     }
