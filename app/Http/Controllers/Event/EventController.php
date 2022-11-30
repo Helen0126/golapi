@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Event;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\Http\Requests\EventStoreRequest;
 use App\Http\Resources\EventResource;
 use App\Models\Event;
@@ -11,7 +11,7 @@ use Auth;
 use DB;
 use Illuminate\Http\Request;
 
-class EventController extends Controller
+class EventController extends ApiController
 {
 
     public function index()
