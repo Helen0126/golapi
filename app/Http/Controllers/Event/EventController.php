@@ -47,7 +47,7 @@ class EventController extends ApiController
 
         return DB::transaction(function () use ($topic, $new_event) {
 
-            $topic->events()->create($new_event);
+            $topic->events()->setModel($new_event)->save();
             return $this->respondCreated("Evento registrado correctamente");
         });
     }
