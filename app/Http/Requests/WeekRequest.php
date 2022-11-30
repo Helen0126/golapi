@@ -33,7 +33,7 @@ class WeekRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'event_date' => Carbon::parse(now())->next(Carbon::FRIDAY),
+            'event_date' => Carbon::parse(now())->next(Carbon::FRIDAY)->toDate(),
         ]);
     }
 }
