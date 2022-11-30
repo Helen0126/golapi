@@ -29,10 +29,10 @@ class EventStoreRequest extends FormRequest
         return [
             'gol_id' => 'required|exists:gols,id',
             'programmed_at' => 'required',
-            'start_at' => 'nullable',
-            'end_at' => 'nullable',
-            'banner' => 'nullable',
-            'name' => 'nullable|image',
+            // 'start_at' => 'nullable',
+            // 'end_at' => 'nullable',
+            // 'banner' => 'nullable',
+            // 'name' => 'nullable|image',
             'status' => 'nullable',
         ];
     }
@@ -44,8 +44,9 @@ class EventStoreRequest extends FormRequest
         $programmed_at =Topic::whereGrade($GRADE)->orderBy('event_date')->first()->week->event_date;
 
         $this->merge([
-            'type_id' => $gol_id,
+            'gol_id' => $gol_id,
             'programmed_at' => $programmed_at,
+            'status' => 'P',
         ]);
     }
 }
