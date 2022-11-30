@@ -20,31 +20,34 @@ class EventController extends ApiController
         return $this->respondWithResourceCollection(EventResource::collection(Event::get()));
     }
 
-    public function store(EventStoreRequest $request)
+    public function store(Request $request)
     {
         $cycle = Auth::user()->person->cycle;
         $nextViernes = Carbon::parse(now())->next(Carbon::FRIDAY);
         $event = Event::whereProgrammedAt($nextViernes)->whereGolId($cycle->gol->id)->first();
+        $topic = Topic::whereGrade($cycle->grade)->where('is_active', '=', true)
+        ->with(['week' => function ($query) use ($nextViernes) {
+            $query->where('event_date', '=', $nextViernes);
+        }])
+        ->first();
+
         if ($event) {
             return $this->respondError("Un evento para la fecha " . $nextViernes . " ya ha sido registrado.");
         }
 
-        $topic = Topic::whereGrade($cycle->grade)->where('is_active', '=', true)
-            ->with(['week' => function ($query) use ($nextViernes) {
-                $query->where('event_date', '=', $nextViernes);
-            }])
-            ->first();
-
         if (!$topic) {
             return $this->respondError("No hay un tema definido para esta semana. Espere que el capellán configure el tema.");
         }
+        $new_event = new Event();
+        $new_event->gol_id = $cycle->gol->id;
+        $new_event->status = 'P';
+        $new_event->programmed_at = $topic->week->event_date;
 
 
 
-        return DB::transaction(function () use ($request, $cycle) {
+        return DB::transaction(function () use ($topic, $new_event) {
 
-            $topic = Topic::whereGrade($cycle->grade)->first();
-            $topic->events()->create($request->validated());
+            $topic->events()->create($new_event);
             return $this->respondCreated("Evento registrado correctamente");
         });
     }

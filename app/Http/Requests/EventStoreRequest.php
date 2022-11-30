@@ -47,7 +47,7 @@ class EventStoreRequest extends FormRequest
 
         $this->merge([
             'gol_id' => $gol_id,
-            'programmed_at' => $programmed_at,
+            // 'programmed_at' => $programmed_at,
             'status' => 'P',
         ]);
     }
