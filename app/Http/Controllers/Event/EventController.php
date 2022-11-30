@@ -23,8 +23,7 @@ class EventController extends ApiController
     public function store(Request $request)
     {
         $cycle = Auth::user()->person->cycle;
-        $nextViernes = Carbon::parse(now())->next('Friday');
-        // dd(Carbon::parse(now()));
+        $nextViernes = Carbon::parse(now())->next(Carbon::FRIDAY);
         $event = Event::whereProgrammedAt($nextViernes)->whereGolId($cycle->gol->id)->first();
         $topic = Topic::whereGrade($cycle->grade)->where('is_active', '=', true)
         ->with(['week' => function ($query) use ($nextViernes) {
@@ -33,7 +32,7 @@ class EventController extends ApiController
         ->first();
 
         if ($event) {
-            return $this->respondError("Un evento para la fecha " . $nextViernes . " ya ha sido registrado.");
+            return $this->respondError("Un evento para la fecha " . $nextViernes->toDateString() . " ya ha sido registrado.");
         }
 
         if (!$topic) {
