@@ -24,6 +24,7 @@ class EventController extends ApiController
     {
         $cycle = Auth::user()->person->cycle;
         $nextViernes = Carbon::parse(now())->next('Friday');
+        dd(Carbon::parse(now()));
         $event = Event::whereProgrammedAt($nextViernes)->whereGolId($cycle->gol->id)->first();
         $topic = Topic::whereGrade($cycle->grade)->where('is_active', '=', true)
         ->with(['week' => function ($query) use ($nextViernes) {
