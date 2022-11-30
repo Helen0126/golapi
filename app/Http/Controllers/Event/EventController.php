@@ -23,10 +23,22 @@ class EventController extends ApiController
     public function store(EventStoreRequest $request)
     {
         $cycle = Auth::user()->person->cycle;
-        $event = Event::whereProgrammedAt(Carbon::parse(now())->next(Carbon::FRIDAY))->whereGolId($cycle->gol->id)->first();
+        $nextViernes = Carbon::parse(now())->next(Carbon::FRIDAY);
+        $event = Event::whereProgrammedAt($nextViernes)->whereGolId($cycle->gol->id)->first();
         if ($event) {
-            return $this->respondError("Un evento para la fecha " . Carbon::parse(now())->next(Carbon::FRIDAY)) ." ya ha sido registrado.";
+            return $this->respondError("Un evento para la fecha " . $nextViernes . " ya ha sido registrado.");
         }
+
+        $topic = Topic::whereGrade($cycle->grade)->where('is_active', '=', true)
+            ->with(['week' => function ($query) use ($nextViernes) {
+                $query->where('event_date', '=', $nextViernes);
+            }])
+            ->first();
+
+        if (!$topic) {
+            return $this->respondError("No hay un tema definido para esta semana. Espere que el capellán configure el tema.");
+        }
+
 
 
         return DB::transaction(function () use ($request, $cycle) {

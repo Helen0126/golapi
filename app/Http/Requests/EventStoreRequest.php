@@ -41,7 +41,9 @@ class EventStoreRequest extends FormRequest
     {
         $gol_id = Auth::user()->person->cycle->gol->id;
         $GRADE = Auth::user()->person->cycle->grade;
-        $programmed_at =Topic::whereGrade($GRADE)->orderBy('event_date')->first()->week->event_date;
+        $programmed_at = Topic::whereGrade($GRADE)->where('is_active', '=', true)
+            ->orderBy('programmed_at')
+            ->first()->week->event_date;
 
         $this->merge([
             'gol_id' => $gol_id,
