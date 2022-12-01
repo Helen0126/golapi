@@ -61,9 +61,17 @@ class EventController extends ApiController
         //
     }
 
-    public function update(Request $request, Event $event)
+    public function update(EventStoreRequest $request, Event $event)
     {
-        //
+        return DB::transaction(function () use ($request, $event) {
+            $event->update($request->validated());
+
+            if ($request->banner != null) {
+                $event->detachMedia();
+                $event->attachMedia($request->banner);
+            }
+            return $this->respondSuccess("Evento actualizado correctamente.");
+        });
     }
 
     public function destroy(Event $event)
