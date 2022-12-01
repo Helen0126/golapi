@@ -31,7 +31,7 @@ class EventController extends ApiController
             }])->first();
 
         if ($event) {
-            return $this->respondError("Un evento para la fecha " . $nextViernes->toDateString() . " ya ha sido registrado.");
+            return $this->respondError("El evento para esta semana ya ha sido registrado.");
         }
 
         if (!$topic) {
