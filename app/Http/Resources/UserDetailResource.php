@@ -26,8 +26,9 @@ class UserDetailResource extends JsonResource
                 'avatar' => $this->fetchFirstMedia()->file_url ?? 'https://ui-avatars.com/api/?name=' . $this->person->getFirstNameAndLastNameBy('+'),
             ]),
             $this->mergeWhen(!$this->hasRole([Role::ADMINISTRADOR, Role::CAPELLAN]), [
-                'event' => Event::whereProgrammedAt(Carbon::parse(now())->next(Carbon::FRIDAY))
-                    ->whereGolId($this->person->cycle->gol->id)->first(),
+                // 'event' => Event::whereProgrammedAt(Carbon::parse(now())->next(Carbon::FRIDAY))
+                //     ->whereGolId($this->person->cycle->gol->id)->first(),
+                'event' => $this->person->cycle ? $this->person->cycle->gol->id : null,
             ]),
             'roles' => $this->getRoleNames(),
         ];
