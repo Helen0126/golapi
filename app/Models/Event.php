@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,15 +26,19 @@ class Event extends Model
      */
     protected $fillable = ['gol_id', 'topic_id', 'name', 'banner', 'programmed_at', 'status', 'start_at', 'end_at'];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'start_at' => 'datetime:H:i',
-        'end_at' => 'datetime:H:i',
-    ];
+    protected function startAt()
+    {
+        return Attribute::make(
+            get: fn ($value) => Carbon::createFromFormat('H:i:s', $value)->format('H:i'),
+        );
+    }
+
+    protected function endAt()
+    {
+        return Attribute::make(
+            get: fn ($value) => Carbon::createFromFormat('H:i:s', $value)->format('H:i'),
+        );
+    }
 
     public function topic()
     {
