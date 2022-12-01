@@ -26,14 +26,14 @@ class Event extends Model
      */
     protected $fillable = ['gol_id', 'topic_id', 'name', 'banner', 'programmed_at', 'status', 'start_at', 'end_at'];
 
-    protected function getStartAtAttribute()
+    protected function getStartAtAttribute($value)
     {
-        return Carbon::createFromFormat('H:i:s', $this->start_at)->format('H:i');
+        return Carbon::createFromFormat('H:i:s', $value)->format('H:i');
     }
 
-    protected function getEndAtAttribute()
+    protected function getEndAtAttribute($value)
     {
-        return  Carbon::createFromFormat('H:i:s', $this->end_at)->format('H:i');
+        return  Carbon::createFromFormat('H:i:s', $value)->format('H:i');
     }
 
     public function topic()
