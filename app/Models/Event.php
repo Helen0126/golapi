@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Event extends Model
 {
-    use HasFactory;
+    use HasFactory, MediaAlly;
 
     /**
      * Indicates if the model should be timestamped.
@@ -31,5 +32,10 @@ class Event extends Model
     public function gol()
     {
         return $this->belongsTo(Gol::class);
+    }
+
+    public function getBanner(): string
+    {
+        return $this->fetchFirstMedia()->file_url ?? "";
     }
 }

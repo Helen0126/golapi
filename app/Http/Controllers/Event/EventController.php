@@ -46,9 +46,12 @@ class EventController extends ApiController
             'end_at' => $request->end_at,
         ];
 
-        return DB::transaction(function () use ($topic, $data) {
+        return DB::transaction(function () use ($topic, $data,$request) {
 
-            $topic->events()->create($data);
+            $event = $topic->events()->create($data);
+            if ($request->banner != null) {
+                $event->attachMedia($request->banner);
+            }
             return $this->respondCreated("Evento registrado correctamente");
         });
     }
