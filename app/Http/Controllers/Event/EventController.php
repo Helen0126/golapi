@@ -20,16 +20,15 @@ class EventController extends ApiController
         return $this->respondWithResourceCollection(EventResource::collection(Event::get()));
     }
 
-    public function store(Request $request)
+    public function store(EventStoreRequest $request)
     {
         $cycle = Auth::user()->person->cycle;
         $nextViernes = Carbon::parse(now())->next(Carbon::FRIDAY);
         $event = Event::whereProgrammedAt($nextViernes)->whereGolId($cycle->gol->id)->first();
         $topic = Topic::whereGrade($cycle->grade)->where('is_active', '=', true)
-        ->with(['week' => function ($query) use ($nextViernes) {
-            $query->where('event_date', '=', $nextViernes);
-        }])
-        ->first();
+            ->with(['week' => function ($query) use ($nextViernes) {
+                $query->where('event_date', '=', $nextViernes);
+            }])->first();
 
         if ($event) {
             return $this->respondError("Un evento para la fecha " . $nextViernes->toDateString() . " ya ha sido registrado.");
@@ -42,6 +41,9 @@ class EventController extends ApiController
             'gol_id' => $cycle->gol->id,
             'status' => 'P',
             'programmed_at' => $topic->week->event_date,
+            'name' => $request->name,
+            'start_at' => $request->start_at,
+            'end_at' => $request->end_at,
         ];
 
         return DB::transaction(function () use ($topic, $data) {

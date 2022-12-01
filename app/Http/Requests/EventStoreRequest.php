@@ -27,28 +27,12 @@ class EventStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'gol_id' => 'required|exists:gols,id',
-            'programmed_at' => 'required',
-            // 'start_at' => 'nullable',
-            // 'end_at' => 'nullable',
-            // 'banner' => 'nullable',
-            // 'name' => 'nullable|image',
-            'status' => 'nullable',
+            'name' => 'required|image',
+            'start_at' => 'required|date_format:H:i',
+            'end_at' => 'required|date_format:H:i',
+            // 'programmed_at' => 'required',
+            'banner' => 'nullable|image',
+            // 'status' => 'nullable',
         ];
-    }
-
-    protected function prepareForValidation()
-    {
-        $gol_id = Auth::user()->person->cycle->gol->id;
-        $GRADE = Auth::user()->person->cycle->grade;
-        $programmed_at = Topic::whereGrade($GRADE)->where('is_active', '=', true)
-            ->orderBy('programmed_at')
-            ->first()->week->event_date;
-
-        $this->merge([
-            'gol_id' => $gol_id,
-            // 'programmed_at' => $programmed_at,
-            'status' => 'P',
-        ]);
     }
 }
