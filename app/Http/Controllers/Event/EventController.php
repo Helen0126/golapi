@@ -68,7 +68,11 @@ class EventController extends ApiController
 
     public function destroy(Event $event)
     {
-        $event->delete();
-        return $this->respondSuccess("Evento eliminado correctamente.");
+        return DB::transaction(function () use ($event)
+        {
+            $event->detachMedia();
+            $event->delete();
+            return $this->respondSuccess("Evento eliminado correctamente.");
+        });
     }
 }
