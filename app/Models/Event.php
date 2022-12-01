@@ -24,6 +24,16 @@ class Event extends Model
      */
     protected $fillable = ['gol_id', 'topic_id', 'name', 'banner', 'programmed_at', 'status', 'start_at', 'end_at'];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'start_at' => 'datetime:H:i',
+        'end_at' => 'datetime:H:i',
+    ];
+
     public function topic()
     {
         return $this->belongsTo(Topic::class);
