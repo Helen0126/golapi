@@ -20,7 +20,7 @@ class EventResource extends JsonResource
             'banner' => $this->getBanner(),
             'programmed_at' => $this->programmed_at,
             'status' => $this->status,
-            'star_at' => $this->star_at,
+            'start_at' => $this->start_at,
             'end_at' => $this->end_at,
         ];
     }

@@ -28,7 +28,10 @@ class UserDetailResource extends JsonResource
             $this->mergeWhen(!$this->hasRole([Role::ADMINISTRADOR, Role::CAPELLAN]), [
                 // 'event' => Event::whereProgrammedAt(Carbon::parse(now())->next(Carbon::FRIDAY))
                 //     ->whereGolId($this->person->cycle->gol->id)->first(),
-                'event' => $this->person->cycle ? $this->person->cycle->gol->id : null,
+                'event' => $this->person->cycle->gol
+                    ? new EventResource(Event::whereProgrammedAt(Carbon::parse(now())->next(Carbon::FRIDAY))
+                        ->whereGolId($this->person->cycle->gol->id)->first())
+                    : null,
             ]),
             'roles' => $this->getRoleNames(),
         ];
