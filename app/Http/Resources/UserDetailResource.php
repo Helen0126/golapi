@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Event;
+use App\Models\Role;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -24,8 +25,10 @@ class UserDetailResource extends JsonResource
                 'person' => new PersonResource($this->whenLoaded('person')),
                 'avatar' => $this->fetchFirstMedia()->file_url ?? 'https://ui-avatars.com/api/?name=' . $this->person->getFirstNameAndLastNameBy('+'),
             ]),
-            'event' => Event::whereProgrammedAt(Carbon::parse(now())->next(Carbon::FRIDAY))
-                ->whereGolId($this->person->cycle->gol->id)->first(),
+            $this->mergeWhen(!$this->hasRole([Role::ADMINISTRADOR, Role::CAPELLAN]), [
+                'event' => Event::whereProgrammedAt(Carbon::parse(now())->next(Carbon::FRIDAY))
+                    ->whereGolId($this->person->cycle->gol->id)->first(),
+            ]),
             'roles' => $this->getRoleNames(),
         ];
     }
