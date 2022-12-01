@@ -27,7 +27,7 @@ class EventStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|image',
+            'name' => 'required',
             'start_at' => 'required|date_format:H:i',
             'end_at' => 'required|date_format:H:i',
             // 'programmed_at' => 'required',
