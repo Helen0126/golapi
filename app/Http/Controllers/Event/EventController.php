@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Requests\EventStoreRequest;
 use App\Http\Resources\EventResource;
 use App\Models\Event;
+use App\Models\Role;
 use App\Models\Topic;
 use Auth;
 use Carbon\Carbon;
@@ -17,7 +18,13 @@ class EventController extends ApiController
 
     public function index()
     {
-        return $this->respondWithResourceCollection(EventResource::collection(Event::get()));
+        if (Auth::user()->hasRole(Role::ADMINISTRADOR)) {
+            return $this->respondWithResourceCollection(EventResource::collection(Event::get()));
+        } else {
+            return $this->respondWithResourceCollection(
+                EventResource::collection(Event::whereGolId(Auth::user()->person->cycle->gol->id)->get())
+            );
+        }
     }
 
     public function store(EventStoreRequest $request)
@@ -46,7 +53,7 @@ class EventController extends ApiController
             'end_at' => $request->end_at,
         ];
 
-        return DB::transaction(function () use ($topic, $data,$request) {
+        return DB::transaction(function () use ($topic, $data, $request) {
 
             $event = $topic->events()->create($data);
             if ($request->banner != null) {
@@ -76,8 +83,7 @@ class EventController extends ApiController
 
     public function destroy(Event $event)
     {
-        return DB::transaction(function () use ($event)
-        {
+        return DB::transaction(function () use ($event) {
             $event->detachMedia();
             $event->delete();
             return $this->respondSuccess("Evento eliminado correctamente.");
