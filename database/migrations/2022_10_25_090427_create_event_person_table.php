@@ -24,7 +24,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('events')->onDelete('cascade');
             $table->boolean('present');
-            $table->timestamp('present_on');
+            // $table->timestamp('present_on');
         });
     }
 

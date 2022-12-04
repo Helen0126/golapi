@@ -46,6 +46,11 @@ class Event extends Model
         return $this->belongsTo(Gol::class);
     }
 
+    public function people()
+    {
+        return $this->belongsToMany(Person::class);
+    }
+
     public function getBanner(): string
     {
         return $this->fetchFirstMedia()->file_url ?? "";
