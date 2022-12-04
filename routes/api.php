@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\Event\EventPersonController;
 use App\Http\Controllers\Gol\GolController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchoolController;
@@ -42,4 +43,5 @@ Route::middleware(['auth:sanctum', 'verifygol'])->group(function () {
     Route::apiResource('topics', TopicController::class)->only(['update', 'destroy']);
     Route::apiResource('schools', SchoolController::class)->only(['index']);
     Route::apiResource('events', EventController::class)->except(['show']);
+    Route::apiResource('event-person', EventPersonController::class)->only(['store']);
 });
