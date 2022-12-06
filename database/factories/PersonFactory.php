@@ -27,8 +27,10 @@ class PersonFactory extends Factory
      */
     public function definition()
     {
+        $genero = fake()->randomElement(['male', 'female']);
+
         return [
-            'names' => fake()->firstName() . ' ' . fake()->firstName(),
+            'names' => fake()->firstName($genero) . ' ' . fake()->firstName($genero),
             'last_names' => fake()->lastName() . ' ' . fake()->lastName(),
             'code' => fake()->unique()->randomNumber(9),
             'email' => fake()->unique()->safeEmail(),
