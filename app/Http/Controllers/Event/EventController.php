@@ -32,6 +32,7 @@ class EventController extends ApiController
         $cycle = Auth::user()->person->cycle;
         $nextViernes = Carbon::parse(now())->next(Carbon::FRIDAY);
         $event = Event::whereProgrammedAt($nextViernes)->whereGolId($cycle->gol->id)->first();
+
         $topic = Topic::whereGrade($cycle->grade)->where('is_active', '=', true)
             ->with(['week' => function ($query) use ($nextViernes) {
                 $query->where('event_date', '=', $nextViernes);
@@ -53,11 +54,15 @@ class EventController extends ApiController
             'end_at' => $request->end_at,
         ];
 
-        return DB::transaction(function () use ($topic, $data, $request) {
+        return DB::transaction(function () use ($topic, $data, $request,$cycle) {
 
             $event = $topic->events()->create($data);
             if ($request->banner != null) {
                 $event->attachMedia($request->banner);
+            }
+            $students = $cycle->people()->get();
+            foreach ($students as $student) {
+                $event->people()->attach($student->id, ['present' => false]);
             }
             return $this->respondCreated("Evento registrado correctamente");
         });
