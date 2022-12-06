@@ -48,7 +48,7 @@ class Event extends Model
 
     public function people()
     {
-        return $this->belongsToMany(Person::class);
+        return $this->belongsToMany(Person::class)->withPivot(['present']);
     }
 
     public function getBanner(): string

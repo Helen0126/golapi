@@ -38,7 +38,7 @@ class Person extends Model
 
     public function events()
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class)->withPivot(['present']);
     }
 
     public function type()
