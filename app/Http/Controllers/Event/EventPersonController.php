@@ -16,6 +16,10 @@ class EventPersonController extends ApiController
 
     public function index()
     {
+        $cycle = Auth::user()->person->cycle;
+        $nextViernes = Carbon::parse(now())->next(Carbon::FRIDAY);
+        $event = Event::with('people')->whereProgrammedAt($nextViernes)->whereGolId($cycle->gol->id)->first();
+        return $event;
     }
 
     public function store()
