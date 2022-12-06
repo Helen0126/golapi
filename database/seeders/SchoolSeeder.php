@@ -17,7 +17,7 @@ class SchoolSeeder extends Seeder
     {
         // FIA
         School::create(['name' => 'E.P de Ingeniera de Sistemas']);
-        School::create(['name' => 'E.P de Arquitectura']);
         School::create(['name' => 'E.P de Ingeniera Ambiental']);
+        School::create(['name' => 'E.P de Arquitectura']);
     }
 }
