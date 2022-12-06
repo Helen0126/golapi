@@ -10,7 +10,10 @@ use App\Http\Requests\StudentStoreRequest;
 use App\Http\Requests\StudentUpdateRequest;
 use App\Http\Resources\PersonResource;
 use App\Models\Person;
+use App\Models\Role;
+use App\Models\School;
 use App\Models\Type;
+use Auth;
 
 class StudentController extends ApiController
 {
@@ -21,7 +24,15 @@ class StudentController extends ApiController
      */
     public function index()
     {
-        $studentCollection = Person::with('cycle.school', 'cycle.gol')->whereRelation('type', 'id', '=', Type::ESTUDIANTE)->get();
+        $studentCollection = null;
+        if (Auth::user()->hasRole([Role::ADMINISTRADOR, Role::CAPELLAN])) {
+            $studentCollection = Person::with('cycle.school', 'cycle.gol')->whereRelation('type', 'id', '=', Type::ESTUDIANTE)->get();
+        } else {
+            $studentCollection = Person::with('cycle.school', 'cycle.gol')
+                ->whereRelation('type', 'id', '=', Type::ESTUDIANTE)
+                ->whereRelation('cycle', 'id', '=', Auth::user()->person->cycle_id)
+                ->get();
+        }
         return $this->respondWithResourceCollection(PersonResource::collection($studentCollection));
     }
 
