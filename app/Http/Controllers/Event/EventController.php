@@ -8,6 +8,7 @@ use App\Http\Resources\EventResource;
 use App\Models\Event;
 use App\Models\Role;
 use App\Models\Topic;
+use App\Models\Type;
 use Auth;
 use Carbon\Carbon;
 use DB;
@@ -54,13 +55,13 @@ class EventController extends ApiController
             'end_at' => $request->end_at,
         ];
 
-        return DB::transaction(function () use ($topic, $data, $request,$cycle) {
+        return DB::transaction(function () use ($topic, $data, $request, $cycle) {
 
             $event = $topic->events()->create($data);
             if ($request->banner != null) {
                 $event->attachMedia($request->banner);
             }
-            $students = $cycle->people()->get();
+            $students = $cycle->people()->whereTypeId(Type::ESTUDIANTE)->get();
             foreach ($students as $student) {
                 $event->people()->attach($student->id, ['present' => false]);
             }
