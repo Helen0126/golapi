@@ -69,9 +69,21 @@ class EventController extends ApiController
         });
     }
 
-    public function finishEvent(Event $event)
+    public function finishEvent()
     {
+        $cycle = Auth::user()->person->cycle;
+        $nextViernes = Carbon::parse(now())->next(Carbon::FRIDAY);
+        $event = Event::whereProgrammedAt($nextViernes)
+            ->whereGolId($cycle->gol->id)
+            ->whereStatus('P')
+            ->first();
+
+        if (!$event) {
+            return $this->respondError("No hay evento :/.");
+        }
+
         $event->update(['status' => 'F']);
+        return $this->respondSuccess('Evento finalizado correctamente');
     }
 
     public function update(EventStoreRequest $request, Event $event)
