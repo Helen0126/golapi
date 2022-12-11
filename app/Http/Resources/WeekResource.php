@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Str;
 
 class WeekResource extends JsonResource
 {
@@ -16,7 +18,7 @@ class WeekResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'event_date' => $this->event_date,
+            'event_date' => Str::title(Carbon::now()->translatedFormat('l jS \\de F')),
             $this->mergeWhen($this->relationLoaded('topics'), [
                 'topics' => new TopicResource($this->topics)
             ]),
