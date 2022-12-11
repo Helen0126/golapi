@@ -18,7 +18,7 @@ class WeekResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'event_date' => Str::title(Carbon::now()->translatedFormat('l jS \\de F')),
+            'event_date' => Str::title(Carbon::parse($this->event_date)->translatedFormat('l jS \\de F')),
             $this->mergeWhen($this->relationLoaded('topics'), [
                 'topics' => new TopicResource($this->topics)
             ]),

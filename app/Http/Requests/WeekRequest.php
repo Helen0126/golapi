@@ -36,4 +36,11 @@ class WeekRequest extends FormRequest
             'event_date' => Carbon::parse(now())->next(Carbon::FRIDAY),
         ]);
     }
+
+    public function messages()
+    {
+        return [
+            'event_date.unique' => 'Ya existen temas registrados para esta fecha.',
+        ];
+    }
 }
