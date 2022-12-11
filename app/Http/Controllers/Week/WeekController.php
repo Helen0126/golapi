@@ -16,7 +16,8 @@ class WeekController extends ApiController
 
     public function index()
     {
-        return $this->respondWithResourceCollection(WeekResource::collection(Week::with('topics')->get()));
+        return $this->respondWithResourceCollection(WeekResource::collection(Week::with('topics')
+            ->orderBy('event_date', 'desc')->get()));
     }
 
     public function store(WeekRequest $request)
