@@ -26,7 +26,7 @@ class StudentController extends ApiController
     {
         $studentCollection = null;
         if (Auth::user()->hasRole([Role::ADMINISTRADOR, Role::CAPELLAN])) {
-            $studentCollection = Person::with('cycle.school', 'cycle.gol')->whereRelation('type', 'id', '=', Type::ESTUDIANTE)->get();
+            $studentCollection = Person::with('cycle.school', 'cycle.gol', 'user')->whereRelation('type', 'id', '=', Type::ESTUDIANTE)->get();
         } else {
             $studentCollection = Person::with('cycle.school', 'cycle.gol')
                 ->whereRelation('type', 'id', '=', Type::ESTUDIANTE)

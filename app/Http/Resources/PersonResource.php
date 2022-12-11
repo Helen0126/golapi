@@ -21,6 +21,7 @@ class PersonResource extends JsonResource
             'code' => $this->code,
             'email' => $this->email,
             'phone' => $this->phone,
+            'user' => new UserResource($this->whenLoaded('user')),
             $this->mergeWhen($this->relationLoaded('cycle'), [
                 'cycle' => new CycleResource($this->cycle),
                 // 'school' => $this->cycle->school->name ?? '',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Role;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -22,6 +23,7 @@ class UserResource extends JsonResource
                 'avatar' => $this->fetchFirstMedia()->file_url ?? 'https://ui-avatars.com/api/?name=' . $this->person->getFirstNameAndLastNameBy('+'),
             ]),
             'is_active' => $this->is_active,
+            'is_lider' => $this->hasRole(Role::LIDER),
         ];
     }
 }
