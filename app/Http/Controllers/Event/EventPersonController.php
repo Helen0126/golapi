@@ -18,7 +18,10 @@ class EventPersonController extends ApiController
     {
         $cycle = Auth::user()->person->cycle;
         $nextViernes = Carbon::parse(now())->next(Carbon::FRIDAY);
-        $event = Event::with('people')->whereProgrammedAt($nextViernes)->whereGolId($cycle->gol->id)->first();
+        $event = Event::with('people')->whereProgrammedAt($nextViernes)
+            ->whereGolId($cycle->gol->id)
+            ->whereStatus('P')
+            ->first();
         return $event;
     }
 
@@ -26,7 +29,10 @@ class EventPersonController extends ApiController
     {
         $cycle = Auth::user()->person->cycle;
         $nextViernes = Carbon::parse(now())->next(Carbon::FRIDAY);
-        $event = Event::whereProgrammedAt($nextViernes)->whereGolId($cycle->gol->id)->first();
+        $event = Event::whereProgrammedAt($nextViernes)
+            ->whereGolId($cycle->gol->id)
+            ->whereStatus('P')
+            ->first();
         $students = Person::whereTypeId(Type::ESTUDIANTE)->whereCycleId($cycle->id)->get();
 
         if (!$event) {
@@ -47,9 +53,16 @@ class EventPersonController extends ApiController
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Event $event)
     {
-        //
+        $request->validate([
+            'person_id' => 'required|exists:people,id',
+        ]);
+
+        $event->people()->updateExistingPivot($request->person_id, [
+            'present' => true,
+        ]);
+        return $this->respondSuccess("Registro de asistencia correcto!");
     }
 
     public function destroy($id)

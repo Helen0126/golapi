@@ -69,9 +69,9 @@ class EventController extends ApiController
         });
     }
 
-    public function show(Event $event)
+    public function finishEvent(Event $event)
     {
-        //
+        $event->update(['status' => 'F']);
     }
 
     public function update(EventStoreRequest $request, Event $event)

@@ -30,7 +30,8 @@ class UserDetailResource extends JsonResource
                 //     ->whereGolId($this->person->cycle->gol->id)->first(),
                 'event' => $this->person->cycle->gol
                     ? new EventResource(Event::whereProgrammedAt(Carbon::parse(now())->next(Carbon::FRIDAY))
-                        ->whereGolId($this->person->cycle->gol->id)->first())
+                        ->whereGolId($this->person->cycle->gol->id)
+                        ->whereStatus('P')->first())
                     : null,
             ]),
             'roles' => $this->getRoleNames(),
