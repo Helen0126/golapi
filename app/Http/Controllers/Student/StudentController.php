@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Actions\SaveUserFromPerson;
 use DB;
 use App\Models\User;
 use App\Models\Cycle;
@@ -48,15 +49,11 @@ class StudentController extends ApiController
         });
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
+    public function setLider(Person $person)
     {
-        //
+        $user = SaveUserFromPerson::make()->handle($person,true);
+        $user->syncRoles([Role::LIDER]);
+        return $this->respondSuccess('Lider asignado correctamente');
     }
 
     public function update(StudentUpdateRequest $request, int $id)

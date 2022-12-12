@@ -38,6 +38,7 @@ Route::middleware(['auth:sanctum', 'verifygol'])->group(function () {
 
     Route::apiResource('tutors', TutorController::class)->except(['show']);
     Route::apiResource('students', StudentController::class)->except(['show']);
+    Route::post('students/{person}/set-lider', [StudentController::class, 'setLider']);
     Route::apiResource('gols', GolController::class)->except(['show']);
     Route::apiResource('weeks', WeekController::class)->except(['show', 'update']);
     Route::apiResource('topics', TopicController::class)->only(['update', 'destroy']);
