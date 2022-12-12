@@ -29,7 +29,7 @@ class StudentController extends ApiController
         if (Auth::user()->hasRole([Role::ADMINISTRADOR, Role::CAPELLAN])) {
             $studentCollection = Person::with('cycle.school', 'cycle.gol', 'user')->whereRelation('type', 'id', '=', Type::ESTUDIANTE)->get();
         } else {
-            $studentCollection = Person::with('cycle.school', 'cycle.gol')
+            $studentCollection = Person::with('cycle.school', 'cycle.gol', 'user')
                 ->whereRelation('type', 'id', '=', Type::ESTUDIANTE)
                 ->whereRelation('cycle', 'id', '=', Auth::user()->person->cycle_id)
                 ->get();
@@ -51,7 +51,7 @@ class StudentController extends ApiController
 
     public function setLider(Person $person)
     {
-        $user = SaveUserFromPerson::make()->handle($person,true);
+        $user = SaveUserFromPerson::make()->handle($person, true);
         $user->syncRoles([Role::LIDER]);
         return $this->respondSuccess('Lider asignado correctamente');
     }
