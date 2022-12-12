@@ -6,9 +6,11 @@ use App\Http\Controllers\ApiController;
 use App\Http\Requests\EventStoreRequest;
 use App\Http\Resources\EventResource;
 use App\Models\Event;
+use App\Models\Person;
 use App\Models\Role;
 use App\Models\Topic;
 use App\Models\Type;
+use App\Models\User;
 use Auth;
 use Carbon\Carbon;
 use DB;
@@ -82,8 +84,27 @@ class EventController extends ApiController
             return $this->respondError("No hay evento :/.");
         }
 
-        $event->update(['status' => 'F']);
-        return $this->respondSuccess('Evento finalizado correctamente');
+        return DB::transaction(function () use ($event, $cycle) {
+            $event->update(['status' => 'F']);
+
+            // ELIMINAR USUARIO LIDER
+            $user = User::role([Role::LIDER])
+                ->whereRelation('person', 'cycle_id', '=', $cycle->id)
+                ->whereRelation('person', 'type_id', '=', Type::ESTUDIANTE)
+                ->first();
+
+            if (!$user) {
+                return $this->respondError("No hay lider...");
+            }
+
+            $user->syncRoles([]);
+            $user->tokens()->delete();
+            $user->delete();
+
+
+
+            return $this->respondSuccess('Evento finalizado correctamente');
+        });
     }
 
     public function update(EventStoreRequest $request, Event $event)
