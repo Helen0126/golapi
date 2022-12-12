@@ -61,9 +61,9 @@ class EventPersonController extends ApiController
             'present' => 'required|boolean',
         ]);
 
-        $event->people()->updateExistingPivot($request->person_id, (new EventPerson([
+        dd($event->people()->updateExistingPivot($request->person_id, (new EventPerson([
             'present' => $request->present
-        ]))->toArray(), false);
+        ]))->toArray(), false));
         return $this->respondSuccess("Registro de asistencia correcto!");
     }
 
