@@ -45,5 +45,5 @@ Route::middleware(['auth:sanctum', 'verifygol'])->group(function () {
     Route::apiResource('schools', SchoolController::class)->only(['index']);
     Route::apiResource('events', EventController::class)->except(['show']);
     Route::post('events/end-current-event', [EventController::class, 'finishEvent']);
-    Route::apiResource('event-person', EventPersonController::class)->only(['index', 'store', 'update']);
+    Route::apiResource('event-person', EventPersonController::class)->only(['index', 'update']);
 });
