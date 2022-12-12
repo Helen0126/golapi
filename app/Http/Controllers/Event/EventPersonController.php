@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Event;
+use App\Models\EventPerson;
 use App\Models\Person;
 use App\Models\Type;
 use Auth;
@@ -60,9 +61,9 @@ class EventPersonController extends ApiController
             'present' => 'required|boolean',
         ]);
 
-        $event->people()->updateExistingPivot($request->person_id, [
-            'present' => $request->present,
-        ]);
+        $event->people()->updateExistingPivot($request->person_id, (new EventPerson([
+            'present' => $request->present
+        ]))->toArray());
         return $this->respondSuccess("Registro de asistencia correcto!");
     }
 
