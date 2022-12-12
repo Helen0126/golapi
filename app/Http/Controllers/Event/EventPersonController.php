@@ -64,11 +64,11 @@ class EventPersonController extends ApiController
         if (!$event) {
             return $this->respondNotFound("No hay evento");
         }
-        return $event->people();
 
-        dd($event->people()->updateExistingPivot($request->person_id, (new EventPerson([
+        $event->people()->updateExistingPivot($request->person_id, (new EventPerson([
             'present' => $request->present
-        ]))->toArray(), false));
+        ]))->toArray(), false);
+        return $event->people;
         return $this->respondSuccess("Registro de asistencia correcto!");
     }
 
