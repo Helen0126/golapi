@@ -93,15 +93,11 @@ class EventController extends ApiController
                 ->whereRelation('person', 'type_id', '=', Type::ESTUDIANTE)
                 ->first();
 
-            if (!$user) {
-                return $this->respondError("No hay lider...");
+            if ($user) {
+                $user->syncRoles([]);
+                $user->tokens()->delete();
+                $user->delete();
             }
-
-            $user->syncRoles([]);
-            $user->tokens()->delete();
-            $user->delete();
-
-
 
             return $this->respondSuccess('Evento finalizado correctamente');
         });
