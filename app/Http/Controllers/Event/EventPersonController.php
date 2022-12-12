@@ -64,7 +64,7 @@ class EventPersonController extends ApiController
         if (!$event) {
             return $this->respondNotFound("No hay evento");
         }
-        return $event;
+        // return $event;
 
         dd($event->people()->updateExistingPivot($request->person_id, (new EventPerson([
             'present' => $request->present
