@@ -34,6 +34,7 @@ class TutorUpdateRequest extends FormRequest
             'last_names' => 'required',
             'code' => 'required|numeric|unique:people,code,' . $this->code . ',code',
             'email' => 'required|email|unique:people,email,' . $this->email . ',email',
+            'gender' => 'required|in:Masculino,Femenino',
             'phone' => 'required|numeric|unique:people,phone,' . $this->phone . ',phone',
         ];
     }

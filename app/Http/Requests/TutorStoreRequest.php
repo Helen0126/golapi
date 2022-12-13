@@ -32,6 +32,7 @@ class TutorStoreRequest extends FormRequest
             'last_names' => 'required',
             'code' => 'required|numeric|unique:people',
             'email' => 'required|email|unique:people',
+            'gender' => 'required|in:Masculino,Femenino',
             'phone' => 'required|numeric|unique:people',
         ];
     }
