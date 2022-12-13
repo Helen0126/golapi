@@ -74,12 +74,16 @@ class TutorController extends ApiController
     {
         $person = Person::findOrFail($id);
         if ($person->user) {
-            return $this->respondError("Este tutor tiene un usuario relacionado.");
-        } else {
-
-            $person->delete();
-            return $this->respondSuccess("Tutor eliminado correctamente.");
+            $person->user->delete();
         }
+
+        if ($person->events->contains($person->id)) {
+            return $this->respondError("El tutor tiene eventos asociados.");
+        }
+
+        $person->delete();
+        return $this->respondSuccess("Tutor eliminado correctamente.");
+
 
         // $user = User::findOrFail($id);
         // $user->person()->dissociate();

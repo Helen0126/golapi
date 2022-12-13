@@ -36,6 +36,7 @@ class PersonFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->unique()->randomNumber(9),
             'type_id' => Type::ESTUDIANTE,
+            'gender' => $genero === 'male' ? 'Masculino' : 'Femenino',
             'cycle_id' => Cycle::pluck('id')->random(),
         ];
     }

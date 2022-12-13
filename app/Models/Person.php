@@ -24,7 +24,7 @@ class Person extends Model
      *
      * @var array
      */
-    protected $fillable = ['names', 'last_names', 'code', 'email', 'phone', 'type_id'];
+    protected $fillable = ['names', 'last_names', 'code', 'email', 'phone', 'type_id', 'gender'];
 
     public function user(): HasOne
     {

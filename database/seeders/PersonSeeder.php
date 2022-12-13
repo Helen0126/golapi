@@ -21,6 +21,7 @@ class PersonSeeder extends Seeder
             'code' => 123456789,
             'email' => 'neisserrey@upeu.edu.pe',
             'phone' => 123456789,
+            'gender' => 'Masculino',
             'type_id' => 1
         ]);
 

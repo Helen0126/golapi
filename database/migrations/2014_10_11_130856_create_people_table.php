@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('code', false, true)->unique();
             $table->string('email', 100)->unique();
             $table->integer('phone', false, true)->unique();
+            $table->string('gender', 10);
         });
     }
 
