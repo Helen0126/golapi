@@ -65,6 +65,10 @@ class GolController extends ApiController
      */
     public function destroy(Gol $gol)
     {
+        if ($gol->events) {
+            return $this->respondError("Este gol tiene eventos relacionados.");
+        }
+
         $gol->detachMedia();
         $gol->delete();
         return $this->respondSuccess("Gol eliminado correctamente");

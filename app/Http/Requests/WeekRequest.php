@@ -40,7 +40,7 @@ class WeekRequest extends FormRequest
     public function messages()
     {
         return [
-            'event_date.unique' => 'Ya existen temas registrados para esta fecha.',
+            'event_date.unique' => 'Ya existen temas registrados para esta semana.',
         ];
     }
 }
