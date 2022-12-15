@@ -73,4 +73,10 @@ class StudentController extends ApiController
         $person->delete();
         return $this->respondSuccess("Alumno eliminado correctamente.");
     }
+
+    public function show(int $id)
+    {
+        $student = Person::findOrFail($id);
+        return $this->respondWithResource(new PersonResource($student));
+    }
 }
