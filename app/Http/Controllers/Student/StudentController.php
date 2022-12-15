@@ -77,6 +77,6 @@ class StudentController extends ApiController
     public function show(int $id)
     {
         $student = Person::findOrFail($id);
-        return $this->respondWithResource(new PersonResource($student));
+        return $this->respondWithResource(new PersonResource($student), "Estudiante encontrado.");
     }
 }
