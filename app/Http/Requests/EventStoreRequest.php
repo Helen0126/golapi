@@ -29,7 +29,7 @@ class EventStoreRequest extends FormRequest
         return [
             'name' => 'required',
             'start_at' => 'required|date_format:H:i',
-            'end_at' => 'required|date_format:H:i',
+            'end_at' => 'required|date_format:H:i|after:start_at',
             // 'programmed_at' => 'required',
             'banner' => 'nullable|image',
             // 'status' => 'nullable',

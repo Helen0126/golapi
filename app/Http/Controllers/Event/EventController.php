@@ -11,6 +11,7 @@ use App\Models\Role;
 use App\Models\Topic;
 use App\Models\Type;
 use App\Models\User;
+use App\Models\Week;
 use Auth;
 use Carbon\Carbon;
 use DB;
@@ -35,23 +36,24 @@ class EventController extends ApiController
         $cycle = Auth::user()->person->cycle;
         $nextViernes = Carbon::parse(now())->next(Carbon::FRIDAY);
         $event = Event::whereProgrammedAt($nextViernes)->whereGolId($cycle->gol->id)->first();
-
-        $topic = Topic::whereGrade($cycle->grade)->where('is_active', '=', true)
-            ->with(['week' => function ($query) use ($nextViernes) {
-                $query->whereDate('event_date', '=', $nextViernes);
-            }])->first();
+        $week = Week::whereDate('event_date', '=', $nextViernes)->first();
+        $topic = $week->topics()->whereGrade($cycle->grade)->where('is_active', '=', true)->first();
 
         if ($event) {
             return $this->respondError("El evento para esta semana ya ha sido registrado.");
         }
 
+        if (!$week) {
+            return $this->respondError("No se configuro temas para esta semana. Espere que el capellán configure el tema.");
+        }
+
         if (!$topic) {
-            return $this->respondError("No hay un tema definido para esta semana. Espere que el capellán configure el tema.");
+            return $this->respondError("No se subio el tema correspondiente. Espere que el capellán configure el tema.");
         }
         $data = [
             'gol_id' => $cycle->gol->id,
             'status' => 'P',
-            'programmed_at' => $topic->week->event_date,
+            'programmed_at' => $week->event_date,
             'name' => $request->name,
             'start_at' => $request->start_at,
             'end_at' => $request->end_at,
