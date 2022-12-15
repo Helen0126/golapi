@@ -6,6 +6,7 @@ use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\EventPersonController;
 use App\Http\Controllers\Gol\GolController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Reports\StudentReportController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Topic\TopicController;
@@ -48,3 +49,4 @@ Route::middleware(['auth:sanctum', 'verifygol'])->group(function () {
     Route::apiResource('event-person', EventPersonController::class)->only(['index']);
     Route::put('event-person/{event}', [EventPersonController::class, 'update']);
 });
+Route::get('/reports/student/{person}', StudentReportController::class);

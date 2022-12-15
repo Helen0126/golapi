@@ -2,411 +2,498 @@
 <html>
 
 <head>
-    {{-- <title>@lang('pdf_invoice_label') - {{ $invoice->invoice_number }}</title> --}}
-    <title>Reporte de alumno ....</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Reporte de alumno {{ $student->names }}, {{ $student->last_names }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <style type="text/css">
-        /* -- Base -- */
+    <style>
+        /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+        html {
+            line-height: 1.15;
+            -webkit-text-size-adjust: 100%
+        }
+
         body {
-            font-family: "DejaVu Sans";
+            margin: 0
+        }
+
+        a {
+            background-color: transparent
+        }
+
+        [hidden] {
+            display: none
         }
 
         html {
-            margin: 0px;
-            padding: 0px;
-            margin-top: 50px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+            line-height: 1.5
+        }
 
+        *,
+        :after,
+        :before {
+            box-sizing: border-box;
+            border: 0 solid #e2e8f0
+        }
+
+        a {
+            color: inherit;
+            text-decoration: inherit
+        }
+
+        svg,
+        video {
+            display: block;
+            vertical-align: middle
+        }
+
+        video {
+            max-width: 100%;
+            height: auto
+        }
+
+        .bg-white {
+            --tw-bg-opacity: 1;
+            background-color: rgb(255 255 255 / var(--tw-bg-opacity))
+        }
+
+        .bg-gray-100 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(243 244 246 / var(--tw-bg-opacity))
+        }
+
+        .border-gray-200 {
+            --tw-border-opacity: 1;
+            border-color: rgb(229 231 235 / var(--tw-border-opacity))
+        }
+
+        .border-t {
+            border-top-width: 1px
+        }
+
+        .flex {
+            display: flex
+        }
+
+        .grid {
+            display: grid
+        }
+
+        .hidden {
+            display: none
+        }
+
+        .items-center {
+            align-items: center
+        }
+
+        .justify-center {
+            justify-content: center
+        }
+
+        .font-semibold {
+            font-weight: 600
+        }
+
+        .h-5 {
+            height: 1.25rem
+        }
+
+        .h-8 {
+            height: 2rem
+        }
+
+        .h-16 {
+            height: 4rem
+        }
+
+        .text-sm {
+            font-size: .875rem
+        }
+
+        .text-lg {
+            font-size: 1.125rem
+        }
+
+        .leading-7 {
+            line-height: 1.75rem
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        .ml-1 {
+            margin-left: .25rem
+        }
+
+        .mt-2 {
+            margin-top: .5rem
+        }
+
+        .mr-2 {
+            margin-right: .5rem
+        }
+
+        .ml-2 {
+            margin-left: .5rem
+        }
+
+        .mt-4 {
+            margin-top: 1rem
+        }
+
+        .ml-4 {
+            margin-left: 1rem
+        }
+
+        .mt-8 {
+            margin-top: 2rem
+        }
+
+        .ml-12 {
+            margin-left: 3rem
+        }
+
+        .-mt-px {
+            margin-top: -1px
+        }
+
+        .max-w-6xl {
+            max-width: 72rem
+        }
+
+        .min-h-screen {
+            min-height: 100vh
+        }
+
+        .overflow-hidden {
+            overflow: hidden
+        }
+
+        .p-6 {
+            padding: 1.5rem
+        }
+
+        .py-4 {
+            padding-top: 1rem;
+            padding-bottom: 1rem
+        }
+
+        .px-6 {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem
+        }
+
+        .pt-8 {
+            padding-top: 2rem
+        }
+
+        .fixed {
+            position: fixed
+        }
+
+        .relative {
+            position: relative
+        }
+
+        .top-0 {
+            top: 0
+        }
+
+        .right-0 {
+            right: 0
+        }
+
+        .shadow {
+            --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);
+            --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
         }
 
         .text-center {
-            text-align: center;
+            text-align: center
         }
 
-        hr {
-            margin: 0 30px 0 30px;
-            color: rgba(0, 0, 0, 0.2);
-            border: 0.5px solid #EAF1FB;
+        .text-gray-200 {
+            --tw-text-opacity: 1;
+            color: rgb(229 231 235 / var(--tw-text-opacity))
         }
 
-        /* -- Header -- */
-
-        .header-bottom-divider {
-            color: rgba(0, 0, 0, 0.2);
-            top: 90px;
-            left: 0px;
-            width: 100%;
-            margin-left: 0%;
-
+        .text-gray-300 {
+            --tw-text-opacity: 1;
+            color: rgb(209 213 219 / var(--tw-text-opacity))
         }
 
-        .header-container {
-            position: absolute;
-            width: 100%;
-            height: 90px;
-            left: 0px;
-            top: -50px;
+        .text-gray-400 {
+            --tw-text-opacity: 1;
+            color: rgb(156 163 175 / var(--tw-text-opacity))
         }
 
-        .header-logo {
-            margin-top: 20px;
-            padding-bottom: 20px;
-            text-transform: capitalize;
-            color: #817AE3;
-
+        .text-gray-500 {
+            --tw-text-opacity: 1;
+            color: rgb(107 114 128 / var(--tw-text-opacity))
         }
 
-        .header {
-            font-size: 20px;
-            color: rgba(0, 0, 0, 0.7);
+        .text-gray-600 {
+            --tw-text-opacity: 1;
+            color: rgb(75 85 99 / var(--tw-text-opacity))
         }
 
-        .content-wrapper {
-            display: block;
-            margin-top: 0px;
-            padding-top: 16px;
-            padding-bottom: 20px;
+        .text-gray-700 {
+            --tw-text-opacity: 1;
+            color: rgb(55 65 81 / var(--tw-text-opacity))
         }
 
-        .company-address-container {
-            padding-top: 15px;
-            padding-left: 30px;
-            float: left;
-            width: 30%;
-            margin-bottom: 2px;
+        .text-gray-900 {
+            --tw-text-opacity: 1;
+            color: rgb(17 24 39 / var(--tw-text-opacity))
         }
 
-        .company-address-container h1 {
-            font-size: 15px;
-            line-height: 22px;
-            letter-spacing: 0.05em;
-            margin-bottom: 0px;
-            margin-top: 10px;
+        .underline {
+            text-decoration: underline
         }
 
-        .company-address {
-            margin-top: 16px;
-            text-align: left;
-            font-size: 12px;
-            line-height: 15px;
-            color: #595959;
-            width: 280px;
-            word-wrap: break-word;
+        .antialiased {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale
         }
 
-        .invoice-details-container {
-            float: right;
-            padding: 10px 30px 0 0;
-            margin-top: 18px;
+        .w-5 {
+            width: 1.25rem
         }
 
-        .attribute-label {
-            font-size: 12px;
-            line-height: 18px;
-            padding-right: 40px;
-            text-align: left;
-            color: #55547A;
+        .w-8 {
+            width: 2rem
         }
 
-        .attribute-value {
-            font-size: 12px;
-            line-height: 18px;
-            text-align: right;
+        .w-auto {
+            width: auto
         }
 
-        /* -- Shipping -- */
-
-        .shipping-address-container {
-            float: right;
-            padding-left: 40px;
-            width: 160px;
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, minmax(0, 1fr))
         }
 
-        .shipping-address {
-            font-size: 12px;
-            line-height: 15px;
-            color: #595959;
-            padding: 45px 0px 0px 40px;
-            margin: 0px;
-            width: 160px;
-            word-wrap: break-word;
+        @media (min-width:640px) {
+            .sm\:rounded-lg {
+                border-radius: .5rem
+            }
+
+            .sm\:block {
+                display: block
+            }
+
+            .sm\:items-center {
+                align-items: center
+            }
+
+            .sm\:justify-start {
+                justify-content: flex-start
+            }
+
+            .sm\:justify-between {
+                justify-content: space-between
+            }
+
+            .sm\:h-20 {
+                height: 5rem
+            }
+
+            .sm\:ml-0 {
+                margin-left: 0
+            }
+
+            .sm\:px-6 {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem
+            }
+
+            .sm\:pt-0 {
+                padding-top: 0
+            }
+
+            .sm\:text-left {
+                text-align: left
+            }
+
+            .sm\:text-right {
+                text-align: right
+            }
         }
 
-        /* -- Billing -- */
+        @media (min-width:768px) {
+            .md\:border-t-0 {
+                border-top-width: 0
+            }
 
-        .billing-address-container {
-            padding-top: 50px;
-            float: left;
-            padding-left: 30px;
+            .md\:border-l {
+                border-left-width: 1px
+            }
+
+            .md\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr))
+            }
         }
 
-        .billing-address-label {
-            font-size: 12px;
-            line-height: 18px;
-            padding: 0px;
-            margin-top: 27px;
-            margin-bottom: 0px;
+        @media (min-width:1024px) {
+            .lg\:px-8 {
+                padding-left: 2rem;
+                padding-right: 2rem
+            }
         }
 
-        .billing-address-name {
-            max-width: 160px;
-            font-size: 15px;
-            line-height: 22px;
-            padding: 0px;
-            margin: 0px;
-        }
+        @media (prefers-color-scheme:dark) {
+            .dark\:bg-gray-800 {
+                --tw-bg-opacity: 1;
+                background-color: rgb(31 41 55 / var(--tw-bg-opacity))
+            }
 
-        .billing-address {
-            font-size: 12px;
-            line-height: 15px;
-            color: #595959;
-            padding: 45px 0px 0px 30px;
-            margin: 0px;
-            width: 160px;
-            word-wrap: break-word;
-        }
+            .dark\:bg-gray-900 {
+                --tw-bg-opacity: 1;
+                background-color: rgb(17 24 39 / var(--tw-bg-opacity))
+            }
 
-        /* -- Items Table -- */
+            .dark\:border-gray-700 {
+                --tw-border-opacity: 1;
+                border-color: rgb(55 65 81 / var(--tw-border-opacity))
+            }
 
-        .items-table {
-            margin-top: 35px;
-            padding: 0px 30px 10px 30px;
-            page-break-before: avoid;
-            page-break-after: auto;
-        }
+            .dark\:text-white {
+                --tw-text-opacity: 1;
+                color: rgb(255 255 255 / var(--tw-text-opacity))
+            }
 
-        .items-table hr {
-            height: 0.1px;
-        }
+            .dark\:text-gray-400 {
+                --tw-text-opacity: 1;
+                color: rgb(156 163 175 / var(--tw-text-opacity))
+            }
 
-        .item-table-heading {
-            font-size: 13.5;
-            text-align: center;
-            color: rgba(0, 0, 0, 0.85);
-            padding: 5px;
-            color: #55547A;
-        }
-
-        tr.item-table-heading-row th {
-            border-bottom: 0.620315px solid #E8E8E8;
-            font-size: 12px;
-            line-height: 18px;
-        }
-
-        tr.item-row td {
-            font-size: 12px;
-            line-height: 18px;
-        }
-
-        .item-cell {
-            font-size: 13;
-            text-align: center;
-            padding: 5px;
-            padding-top: 10px;
-            color: #040405;
-        }
-
-        .item-description {
-            color: #595959;
-            font-size: 9px;
-            line-height: 12px;
-        }
-
-        /* -- Total Display Table -- */
-
-        .total-display-container {
-            padding: 0 25px;
-        }
-
-        .total-display-table {
-            border-top: none;
-            page-break-inside: avoid;
-            page-break-before: auto;
-            page-break-after: auto;
-            margin-top: 20px;
-            float: right;
-            width: auto;
-        }
-
-        .total-table-attribute-label {
-            font-size: 13px;
-            color: #55547A;
-            text-align: left;
-            padding-left: 10px;
-        }
-
-        .total-table-attribute-value {
-            font-weight: bold;
-            text-align: right;
-            font-size: 13px;
-            color: #040405;
-            padding-right: 10px;
-            padding-top: 2px;
-            padding-bottom: 2px;
-        }
-
-        .total-border-left {
-            border: 1px solid #E8E8E8 !important;
-            border-right: 0px !important;
-            padding-top: 0px;
-            padding: 8px !important;
-        }
-
-        .total-border-right {
-            border: 1px solid #E8E8E8 !important;
-            border-left: 0px !important;
-            padding-top: 0px;
-            padding: 8px !important;
-        }
-
-        /* -- Notes -- */
-
-        .notes {
-            font-size: 12px;
-            color: #595959;
-            margin-top: 15px;
-            margin-left: 30px;
-            width: 442px;
-            text-align: left;
-            page-break-inside: avoid;
-        }
-
-        .notes-label {
-            font-size: 15px;
-            line-height: 22px;
-            letter-spacing: 0.05em;
-            color: #040405;
-            width: 108px;
-            white-space: nowrap;
-            height: 19.87px;
-            padding-bottom: 10px;
-        }
-
-        /* -- Helpers -- */
-
-        .text-primary {
-            color: #5851DB;
-        }
-
-
-        table .text-left {
-            text-align: left;
-        }
-
-        table .text-right {
-            text-align: right;
-        }
-
-        .border-0 {
-            border: none;
-        }
-
-        .py-2 {
-            padding-top: 2px;
-            padding-bottom: 2px;
-        }
-
-        .py-8 {
-            padding-top: 8px;
-            padding-bottom: 8px;
-        }
-
-        .py-3 {
-            padding: 3px 0;
-        }
-
-        .pr-20 {
-            padding-right: 20px;
-        }
-
-        .pr-10 {
-            padding-right: 10px;
-        }
-
-        .pl-20 {
-            padding-left: 20px;
-        }
-
-        .pl-10 {
-            padding-left: 10px;
-        }
-
-        .pl-0 {
-            padding-left: 0;
+            .dark\:text-gray-500 {
+                --tw-text-opacity: 1;
+                color: rgb(107 114 128 / var(--tw-text-opacity))
+            }
         }
     </style>
+    <link rel="stylesheet" href="{{ asset('bulma.css') }}">
+    <link rel="stylesheet" href="{{ asset('bulma-helpers.min.css') }}">
 </head>
 
 <body>
-    <div class="header-container">
+    <div class="box has-background-info">
         <table width="100%">
             <tr>
-                <td class="text-center">
-                    <img class="header-logo" style="height:50px" src="{{asset('phot.png') }}" alt="Company Logo">
+                <td class="text-left">
+                    <img class="header-logo" style="height:100px" src="{{ asset('upeu.png') }}" alt="UPeU">
 
+                </td>
+                <td class="text-center">
+                    <h2 class="has-text-light is-size-3 has-text-weight-bold">UNIVERSIDAD PERUANA UNIÓN</h2>
+                    <h2 class="has-text-light subtitle is-3 has-text-weight-bold">Filial Tarapoto</h2>
                 </td>
             </tr>
         </table>
-        <hr class="header-bottom-divider" style="border: 0.620315px solid #E8E8E8;" />
     </div>
+    <div class="box">
+        <div class="notification is-info is-light">
+            <h2 class="has-text-weight-bold">Informacion del Alumno</h2>
+        </div>
+        <table class="table is-fullwidth is-narrow is-completely-borderless">
+            <thead>
+                <tr>
+                    <th scope="col" class="has-text-right"></th>
+                    <th scope="col"></th>
+                    <th scope="col" style="width: 100px"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row" class="has-text-right">Nombres:</td>
+                    <td>{{ $student->names }} </td>
+                    <td> </td>
+                    <td scope="row" class="has-text-right">GOL:</td>
+                    <td>{{ $student->cycle->gol->name ?? '' }} </td>
+                </tr>
+                <tr>
+                    <td scope="row" class="has-text-right">Apellidos:</td>
+                    <td>{{ $student->last_names }} </td>
+                    <td> </td>
+                    <td scope="row" class="has-text-right">Escuela:</td>
+                    <td>{{ $student->cycle->school->name }}</td>
+                </tr>
+                <tr>
+                    <td scope="row" class="has-text-right">Codigo:</td>
+                    <td>{{ $student->code }} </td>
+                    <td> </td>
+                    <td scope="row" class="has-text-right">Ciclo:</td>
+                    <td>{{ $student->cycle->name }}</td>
+                </tr>
+                <tr>
+                    <td scope="row" class="has-text-right">Email:</td>
+                    <td>{{ $student->email }} </td>
+                    <td> </td>
+                    {{-- <td scope="row" class="has-text-right">Ciclo:</td>
+                    <td>{{ $student->cycle->name }}</td> --}}
+                </tr>
+                <tr>
+                    <td scope="row" class="has-text-right">Celular:</td>
+                    <td>{{ $student->phone }} </td>
+                    <td> </td>
+                    {{-- <td scope="row" class="has-text-right">Ciclo:</td>
+                    <td>{{ $student->cycle->name }}</td> --}}
+                </tr>
+                {{-- <tr>
+                    <td scope="row" class="has-text-right">Ciclo:</td>
+                    <td>{{ $student->cycle->name }}</td>
+                </tr>
+                <tr>
+                    <td scope="row" class="has-text-right">Escuela:</td>
+                    <td>{{ $student->cycle->school->name }}</td>
+                </tr> --}}
+            </tbody>
+        </table>
 
-
-    {{-- <div class="content-wrapper">
-        <div style="padding-top: 30px">
-            <div class="company-address-container company-address">
-                {!! $company_address !!}
-            </div>
-
-            <div class="invoice-details-container">
-                <table>
+    </div>
+    <div class="box">
+        <div class="notification is-info is-light">
+            <h2 class="has-text-weight-bold">Registro de Asistencia</h2>
+        </div>
+        <table class="table is-fullwidth is-bordered is-striped mt-2">
+            <thead>
+                <tr>
+                    <th scope="col" class="has-text-center">N°</th>
+                    <th scope="col">Evento</th>
+                    <th scope="col">Tema</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">¿Asistió?</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($student->events as $event)
                     <tr>
-                        <td class="attribute-label">@lang('pdf_invoice_number')</td>
-                        <td class="attribute-value"> &nbsp;{{ $invoice->invoice_number }}</td>
+                        <td scope="row" class="text-center">{{ $loop->index + 1 }}</td>
+                        <td class="text-center">{{ $event->name }}</td>
+                        <td class="text-center">{{ $event->topic->name }}</td>
+                        <td class="text-center">
+                            {{ \Carbon\Carbon::parse($event->programmed_at)->translatedFormat('jS \\de F \\de Y') }}
+                        </td>
+                        <td class="text-center">
+                            @if ($event->pivot->present)
+                                <img src="{{ asset('check-mark.png') }}" width="25" height="25" />
+                            @else
+                                <img src="{{ asset('multiply.png') }}" width="25" height="25" />
+                            @endif
+                        </td>
                     </tr>
-                    <tr>
-                        <td class="attribute-label">@lang('pdf_invoice_date')</td>
-                        <td class="attribute-value"> &nbsp;{{ $invoice->formattedInvoiceDate }}</td>
-                    </tr>
-                    <tr>
-                        <td class="attribute-label">@lang('pdf_invoice_due_date')</td>
-                        <td class="attribute-value"> &nbsp;{{ $invoice->formattedDueDate }}</td>
-                    </tr>
-                </table>
-            </div>
+                @endforeach
+            </tbody>
 
-            <div style="clear: both;"></div>
-        </div>
-
-        <div class="billing-address-container billing-address">
-            @if ($billing_address)
-                <b>@lang('pdf_bill_to')</b> <br>
-
-                {!! $billing_address !!}
-            @endif
-        </div>
-
-        <div class="shipping-address-container shipping-address" @if ($billing_address !== '</br>') style="float:left;" @else style="display:block; float:left: padding-left: 0px;" @endif>
-            @if ($shipping_address)
-                <b>@lang('pdf_ship_to')</b> <br>
-
-                {!! $shipping_address !!}
-            @endif
-        </div>
-
-        <div style="position: relative; clear: both;">
-            @include('app.pdf.invoice.partials.table')
-        </div>
-
-        <div class="notes">
-            @if ($notes)
-                <div class="notes-label">
-                    @lang('pdf_notes')
-                </div>
-
-                {!! $notes !!}
-            @endif
-        </div>
-    </div> --}}
+        </table>
+    </div>
 </body>
 
 </html>

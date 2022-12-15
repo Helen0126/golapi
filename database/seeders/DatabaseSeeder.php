@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App;
+use App\Models\Gol;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,6 +25,8 @@ class DatabaseSeeder extends Seeder
             PersonSeeder::class,
             StudentSeeder::class,
             TutorSeeder::class,
+            GolSeeder::class,
+            FakeDataSeeder::class,
 
         ]);
 
