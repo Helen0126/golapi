@@ -22,6 +22,7 @@ class EventResource extends JsonResource
             'status' => $this->status,
             'start_at' => $this->start_at,
             'end_at' => $this->end_at,
+            'topic' => new TopicResource($this->whenLoaded('topic'))
         ];
     }
 }
