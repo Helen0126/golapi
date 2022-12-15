@@ -23,10 +23,10 @@ class EventController extends ApiController
     public function index()
     {
         if (Auth::user()->hasRole(Role::ADMINISTRADOR)) {
-            return $this->respondWithResourceCollection(EventResource::collection(Event::get()));
+            return $this->respondWithResourceCollection(EventResource::collection(Event::with('topic')->get()));
         } else {
             return $this->respondWithResourceCollection(
-                EventResource::collection(Event::whereGolId(Auth::user()->person->cycle->gol->id)->get())
+                EventResource::collection(Event::with('topic')->whereGolId(Auth::user()->person->cycle->gol->id)->get())
             );
         }
     }
