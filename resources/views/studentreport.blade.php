@@ -377,8 +377,8 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="{{ asset('bulma.css') }}">
-    <link rel="stylesheet" href="{{ asset('bulma-helpers.min.css') }}">
+    <link rel="stylesheet" href="{{ public_path('bulma.css') }}">
+    <link rel="stylesheet" href="{{ public_path('bulma-helpers.min.css') }}">
 </head>
 
 <body>
@@ -386,7 +386,7 @@
         <table width="100%">
             <tr>
                 <td class="text-left">
-                    <img class="header-logo" style="height:100px" src="{{ asset('upeu.png') }}" alt="UPeU">
+                    <img class="header-logo" style="height:100px" src="{{ public_path('upeu.png') }}" alt="UPeU">
 
                 </td>
                 <td class="text-center">
@@ -483,9 +483,9 @@
                         </td>
                         <td class="text-center">
                             @if ($event->pivot->present)
-                                <img src="{{ asset('check-mark.png') }}" width="25" height="25" />
+                                <img src="{{ public_path('check-mark.png') }}" width="25" height="25" />
                             @else
-                                <img src="{{ asset('multiply.png') }}" width="25" height="25" />
+                                <img src="{{ public_path('multiply.png') }}" width="25" height="25" />
                             @endif
                         </td>
                     </tr>
