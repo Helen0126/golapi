@@ -38,7 +38,7 @@ class EventController extends ApiController
 
         $topic = Topic::whereGrade($cycle->grade)->where('is_active', '=', true)
             ->with(['week' => function ($query) use ($nextViernes) {
-                $query->where('event_date', '=', $nextViernes);
+                $query->whereDate('event_date', '=', $nextViernes);
             }])->first();
 
         if ($event) {
