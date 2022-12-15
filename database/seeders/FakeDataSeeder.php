@@ -40,12 +40,12 @@ class FakeDataSeeder extends Seeder
         $topic1 = $week1->topics->where('grade', '=', '3')->first();
         $event1 = Event::create([
             'name' => 'Evento 1',
-            'gol_id' => 6,
+            'gol_id' => 3,
             'topic_id' => $topic1->id,
             'start_at' => '08:00',
             'end_at' => '20:00',
             'programmed_at' => '2022-12-02',
-            'status' => 'P',
+            'status' => 'F',
         ]);
 
         $students = Cycle::find(6)->people()->whereTypeId(Type::ESTUDIANTE)->get();
@@ -55,12 +55,12 @@ class FakeDataSeeder extends Seeder
         $topic2 = $week->topics->where('grade', '=', '3')->first();
         $event2 = Event::create([
             'name' => 'Evento 2',
-            'gol_id' => 6,
+            'gol_id' => 3,
             'topic_id' => $topic2->id,
             'start_at' => '08:00',
             'end_at' => '20:00',
             'programmed_at' => '2022-12-09',
-            'status' => 'P',
+            'status' => 'F',
         ]);
         foreach ($students as $student) {
             $event2->people()->attach($student->id, ['present' => Arr::random([true, false])]);
