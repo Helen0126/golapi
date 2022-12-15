@@ -84,4 +84,15 @@ class ProfileController extends ApiController
             return $this->respondWithResource(new UserDetailResource(Auth::user()->load(['person.cycle.gol'])));
         }
     }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required',
+        ]);
+
+        Auth::user()->update(['password' => $request->password]);
+
+        return $this->respondSuccess('Password actualizado correctamente');
+    }
 }

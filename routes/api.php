@@ -35,6 +35,7 @@ Route::middleware(['auth:sanctum', 'verifygol'])->group(function () {
     Route::controller(ProfileController::class)->group(function () {
         Route::post('user/upload-avatar', 'uploadAvatar');
         Route::get('user/profile', 'showProfile');
+        Route::post('user/reset-password', 'updatePassword');
     });
 
     Route::apiResource('tutors', TutorController::class)->except(['show']);
